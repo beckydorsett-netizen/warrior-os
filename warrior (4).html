@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warrior OS — Complete System</title>
+<style>
+:root{--bg:#09090b;--bg2:#0e0e14;--card:#141420;--border:#222230;--border2:#2a2a40;--teal:#1D9E75;--td:rgba(29,158,117,.14);--tg:rgba(29,158,117,.06);--blue:#378ADD;--bd:rgba(55,138,221,.14);--purple:#7F77DD;--pd:rgba(127,119,221,.14);--amber:#EF9F27;--ad:rgba(239,159,39,.14);--orange:#E07830;--od:rgba(224,120,48,.14);--red:#E24B4A;--rd:rgba(226,75,74,.14);--pink:#D4699A;--pkd:rgba(212,105,154,.14);--text:#E2EAF6;--text2:#7B9DC4;--text3:#3A5070;--mono:'DM Mono','Fira Mono',monospace;--sans:-apple-system,'Segoe UI',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7;}
+.tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow-x:auto;}
+.tab{font-size:11px;padding:11px 14px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.tab:hover{color:var(--text);}.tab.active{color:var(--teal);border-bottom-color:var(--teal);}
+.page{display:none;max-width:860px;margin:0 auto;padding:22px 16px 80px;}.page.active{display:block;}
+/* CALC */
+.cw{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:20px;}
+.ct{font-size:15px;font-weight:600;margin-bottom:3px;}.cs{font-size:11px;color:var(--text2);margin-bottom:16px;}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px;}
+@media(max-width:500px){.ig{grid-template-columns:repeat(2,1fr);}}
+.inp label{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-bottom:4px;}
+.inp input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;color:var(--text);font-size:15px;font-family:var(--mono);text-align:center;outline:none;transition:border-color .15s;}
+.inp input:focus{border-color:var(--teal);}.inp.cyc label{color:var(--pink);}.inp.cyc input{border-color:rgba(212,105,154,.4);}
+.cpbadge{font-family:var(--mono);font-size:10px;padding:2px 9px;border-radius:20px;margin-top:4px;display:none;}
+.cbtn{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;width:100%;transition:opacity .15s;}.cbtn:hover{opacity:.85;}
+.results{display:none;margin-top:12px;}
+.rcards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+@media(max-width:500px){.rcards{grid-template-columns:repeat(2,1fr);}}
+.rc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
+.rl{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:3px;}
+.rv{font-size:20px;font-weight:700;line-height:1;}.rs{font-size:10px;margin-top:3px;}
+.rbar{height:3px;background:var(--border2);border-radius:2px;margin-top:5px;}.rfill{height:3px;border-radius:2px;transition:width .4s;}
+.zb{border-radius:8px;padding:13px 15px;margin-bottom:8px;border:1px solid;display:none;}
+.zbt{font-size:13px;font-weight:600;margin-bottom:4px;}.zbb{font-size:11.5px;line-height:1.75;}.zbb strong{font-weight:600;}
+.cycb{border-radius:8px;padding:11px 14px;margin-bottom:8px;font-size:12px;line-height:1.7;display:none;}
+.cyct{font-size:12px;font-weight:600;margin-bottom:3px;}
+.ao{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-top:8px;display:none;}
+.aot{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:7px;}
+.aos{margin-bottom:6px;}.aol{font-size:10px;font-weight:600;color:var(--text2);margin-bottom:2px;}.aoi{font-size:11.5px;color:var(--text2);line-height:1.7;}
+/* LEGEND */
+.sec{margin-bottom:36px;}
+.sh{display:flex;align-items:center;gap:9px;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.si{font-size:17px;}.st{font-size:15px;font-weight:600;}.ss{font-size:11px;color:var(--text2);margin-top:2px;}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.sch{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.scn{font-size:13px;font-weight:600;}.scf{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px;}
+.scr{font-family:var(--mono);font-size:9px;color:var(--text3);background:var(--card);padding:2px 7px;border-radius:20px;}
+.tier{display:grid;grid-template-columns:78px 1fr;border-bottom:1px solid var(--border);}.tier:last-child{border-bottom:none;}
+.tl{padding:10px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);gap:2px;}
+.tb{font-size:13px;}.ts{font-family:var(--mono);font-size:9px;font-weight:600;text-align:center;line-height:1.3;}
+.tr{padding:8px 12px;}.trl{font-size:12px;font-weight:600;margin-bottom:2px;}.trb{font-size:11px;color:var(--text2);line-height:1.6;}
+.act{font-family:var(--mono);font-size:10px;padding:4px 8px;border-radius:4px;margin-top:4px;display:block;line-height:1.65;}
+.t1{background:rgba(29,158,117,.04);}.t1 .tl{background:rgba(29,158,117,.12);}.t1 .ts,.t1 .trl{color:var(--teal);}.t1 .act{background:rgba(29,158,117,.1);color:#6DC4A0;}
+.t2{background:rgba(55,138,221,.04);}.t2 .tl{background:rgba(55,138,221,.12);}.t2 .ts,.t2 .trl{color:var(--blue);}.t2 .act{background:rgba(55,138,221,.1);color:#88B8E0;}
+.t3{background:rgba(239,159,39,.04);}.t3 .tl{background:rgba(239,159,39,.12);}.t3 .ts,.t3 .trl{color:var(--amber);}.t3 .act{background:rgba(239,159,39,.1);color:#D4A854;}
+.t4{background:rgba(224,120,48,.04);}.t4 .tl{background:rgba(224,120,48,.12);}.t4 .ts,.t4 .trl{color:var(--orange);}.t4 .act{background:rgba(224,120,48,.1);color:#C89060;}
+.t5{background:rgba(226,75,74,.04);}.t5 .tl{background:rgba(226,75,74,.12);}.t5 .ts,.t5 .trl{color:var(--red);}.t5 .act{background:rgba(226,75,74,.1);color:#D47070;}
+/* CYCLE CARDS */
+.cc{border-radius:10px;padding:13px 15px;margin-bottom:10px;border:1px solid;}
+.cc-m{background:rgba(226,75,74,.07);border-color:rgba(226,75,74,.3);}.cc-f{background:rgba(55,138,221,.07);border-color:rgba(55,138,221,.3);}
+.cc-o{background:rgba(29,158,117,.07);border-color:rgba(29,158,117,.3);}.cc-l{background:rgba(212,105,154,.07);border-color:rgba(212,105,154,.3);}
+.cct{font-size:13px;font-weight:600;margin-bottom:7px;}
+.cc-m .cct{color:var(--red);}.cc-f .cct{color:var(--blue);}.cc-o .cct{color:var(--teal);}.cc-l .cct{color:var(--pink);}
+.cr{display:flex;gap:8px;font-size:11px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);}.cr:last-child{border-bottom:none;}
+.crlb{color:var(--text3);width:100px;flex-shrink:0;font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.06em;padding-top:2px;}
+.crv{color:var(--text2);flex:1;line-height:1.6;}.crv strong{color:var(--text);}
+/* ACTIVITY ZONES */
+.az{background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+.azh{padding:11px 15px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.azb{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:20px;border:1px solid;flex-shrink:0;}
+.azt{font-size:13px;font-weight:600;}.aze{font-size:11px;color:var(--text2);margin-left:auto;}
+.azbd{padding:11px 15px;}
+.azr{display:grid;grid-template-columns:100px 1fr;gap:9px;padding:5px 0;border-bottom:1px solid var(--border);}.azr:last-child{border-bottom:none;}
+.azc{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding-top:2px;}
+.aza{font-size:11px;color:var(--text2);line-height:1.65;}
+.azav{border-top:1px solid var(--border);padding:7px 15px;font-size:11px;color:#D47070;background:rgba(226,75,74,.05);}
+.zb1{border-color:var(--teal);color:var(--teal);background:var(--td);}
+.zb2{border-color:var(--blue);color:var(--blue);background:var(--bd);}
+.zb3{border-color:var(--amber);color:var(--amber);background:var(--ad);}
+.zb4{border-color:var(--orange);color:var(--orange);background:var(--od);}
+.zb5{border-color:var(--red);color:var(--red);background:var(--rd);}
+
+/* HISTORY */
+.hpanel{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;overflow:hidden;}
+.hh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;}
+.hht{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
+.streak-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;background:rgba(29,158,117,.15);color:var(--teal);border:1px solid rgba(29,158,117,.3);}
+.hchev{font-size:10px;color:var(--text3);transition:transform .2s;}.hchev.open{transform:rotate(180deg);}
+.hbody{border-top:1px solid var(--border);padding:12px 14px;display:none;}.hbody.open{display:block;}
+.spark{display:flex;align-items:flex-end;gap:4px;height:62px;}
+.sbar-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;cursor:pointer;}
+.sbar-wrap:hover .sbar{opacity:1!important;filter:brightness(1.2);}
+.sbar-wrap:hover .irbar{opacity:.9!important;}
+.sbar{width:100%;border-radius:3px 3px 0 0;min-height:3px;transition:all .2s;}
+.irbar{width:60%;border-radius:2px 2px 0 0;min-height:2px;transition:all .2s;margin:0 auto;}
+.spark-bars{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;gap:1px;}
+.sday{font-family:var(--mono);font-size:8px;color:var(--text3);text-align:center;}
+.sval{font-family:var(--mono);font-size:9px;font-weight:700;text-align:center;}
+.hnav{font-family:var(--mono);font-size:10px;background:var(--card);border:1px solid var(--border2);border-radius:5px;padding:4px 10px;color:var(--text2);cursor:pointer;transition:all .15s;}
+.hnav:hover{border-color:var(--teal);color:var(--teal);}
+.hday-row{display:grid;grid-template-columns:70px 30px 1fr 54px;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;border-radius:4px;}
+.hday-row:last-child{border-bottom:none;}
+.hday-row:hover{background:rgba(255,255,255,.03);}
+.hday-row.selected{background:rgba(29,158,117,.07);border-color:rgba(29,158,117,.2);}
+.hd-date{font-family:var(--mono);font-size:10px;color:var(--text2);}
+.hd-score{font-family:var(--mono);font-size:13px;font-weight:700;}
+.hd-zone{font-size:10px;color:var(--text2);}
+.hd-phase{font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;}
+.ecard{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:12px;margin-top:10px;}
+.ecard-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.ecard-close{cursor:pointer;color:var(--text3);font-size:14px;padding:0 4px;}
+.ecard-close:hover{color:var(--red);}
+.egrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+@media(max-width:500px){.egrid{grid-template-columns:repeat(2,1fr);}}
+.eitem{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 9px;}
+.ei-label{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:2px;}
+.ei-val{font-size:14px;font-weight:700;line-height:1;}
+.ei-sub{font-size:9px;color:var(--text3);margin-top:2px;}
+.eload-btn{font-family:var(--mono);font-size:10px;background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.3);border-radius:5px;padding:5px 12px;color:var(--teal);cursor:pointer;transition:all .15s;width:100%;}
+.eload-btn:hover{background:rgba(29,158,117,.2);}
+.hempty{text-align:center;padding:16px;font-size:11px;color:var(--text3);font-family:var(--mono);}
+.hfooter{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:8px;}
+.hfooter-avg{font-family:var(--mono);font-size:9px;color:var(--text3);}
+.hclear{font-family:var(--mono);font-size:9px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;cursor:pointer;}
+.hclear:hover{border-color:var(--red);color:var(--red);}
+.week-grade{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:20px;border:1px solid;}
+
+/* NOTION SYNC */
+.nsync-btn{font-family:var(--mono);font-size:11px;background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.3);border-radius:7px;padding:8px 14px;color:var(--teal);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;width:100%;justify-content:center;margin-top:8px;}
+.nsync-btn:hover{background:rgba(29,158,117,.2);border-color:var(--teal);}
+.nsync-btn:disabled{opacity:.4;cursor:not-allowed;}
+.nmodal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;}
+.nmodal{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:20px;width:100%;max-width:440px;max-height:80vh;overflow-y:auto;}
+.nmodal h3{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:14px;}
+.nfield{margin-bottom:12px;}
+.nfield label{font-family:var(--mono);font-size:10px;color:var(--text3);display:block;margin-bottom:4px;}
+.nfield input{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;color:var(--text);font-family:var(--mono);font-size:11px;outline:none;}
+.nfield input:focus{border-color:var(--teal);}
+.nfield .hint{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;line-height:1.4;}
+.nmodal-btns{display:flex;gap:8px;margin-top:16px;}
+.nbtn-primary{flex:1;background:var(--teal);color:#fff;border:none;border-radius:7px;padding:9px;font-family:var(--mono);font-size:11px;font-weight:600;cursor:pointer;transition:opacity .15s;}
+.nbtn-primary:hover{opacity:.85;}
+.nbtn-primary:disabled{opacity:.4;cursor:not-allowed;}
+.nbtn-cancel{background:var(--card);border:1px solid var(--border2);border-radius:7px;padding:9px 14px;font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;}
+.nsync-status{font-family:var(--mono);font-size:10px;margin-top:10px;padding:8px;border-radius:6px;display:none;}
+.nsync-ok{background:rgba(29,158,117,.1);color:var(--teal);border:1px solid rgba(29,158,117,.3);}
+.nsync-err{background:rgba(226,75,74,.1);color:#E24B4A;border:1px solid rgba(226,75,74,.3);}
+
+/* MORNING CHECKLIST */
+.mcl-wrap{margin-top:10px;}
+.mcl-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;overflow:hidden;}
+.mcl-hh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;user-select:none;}
+.mcl-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
+.mcl-badge{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:20px;border:1px solid var(--border2);color:var(--text3);}
+.mcl-body{border-top:1px solid var(--border);padding:12px 14px;display:none;}
+.mcl-body.open{display:block;}
+.mcl-zone{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.mcl-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s;}
+.mcl-item:last-child{border-bottom:none;}
+.mcl-item.done{opacity:.45;}
+.mcl-cb{width:16px;height:16px;border:1px solid var(--border2);border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s;}
+.mcl-item.done .mcl-cb{background:var(--teal);border-color:var(--teal);}
+.mcl-text{font-size:11px;color:var(--text);line-height:1.4;}
+.mcl-item.done .mcl-text{text-decoration:line-through;color:var(--text3);}
+.mcl-reset{font-family:var(--mono);font-size:9px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:4px;padding:3px 8px;cursor:pointer;margin-top:10px;transition:all .15s;}
+.mcl-reset:hover{border-color:var(--teal);color:var(--teal);}
+.mcl-progress{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:8px;}
+/* NOTION */
+.nb{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:12px 14px;margin:8px 0;}
+.nbt{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;}
+.nbs{font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border);line-height:1.6;}.nbs:last-child{border-bottom:none;}.nbs strong{color:var(--text);}
+/* DEVICE */
+.dc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:10px;}
+.dct{font-size:13px;font-weight:600;margin-bottom:7px;}
+.ddr{display:flex;gap:8px;font-size:11px;padding:3px 0;border-bottom:1px solid var(--border);}.ddr:last-child{border-bottom:none;}
+.ddl{color:var(--text3);width:120px;flex-shrink:0;}.ddv{color:var(--text2);}
+/* CODE */
+.code{background:#050810;border:1px solid var(--border2);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:10px 12px;margin:6px 0;font-family:var(--mono);font-size:11px;color:#7ECFB0;line-height:1.7;white-space:pre-wrap;word-break:break-all;position:relative;}
+.code.pk{border-left-color:var(--pink);color:#E8A0C0;}.code.b{border-left-color:var(--blue);color:#8BBDE8;}
+.cp{position:absolute;top:5px;right:6px;font-family:var(--mono);font-size:8px;text-transform:uppercase;padding:2px 6px;border-radius:3px;border:1px solid var(--border2);background:var(--card);color:var(--text3);cursor:pointer;transition:all .15s;}.cp:hover{color:var(--teal);border-color:var(--teal);}
+/* CALLOUTS */
+.co{border-radius:7px;padding:9px 12px;margin:7px 0;font-size:12px;line-height:1.7;display:flex;gap:7px;}
+.ci{background:var(--bd);border:1px solid rgba(55,138,221,.2);color:#88B8E0;}
+.cs{background:var(--tg);border:1px solid rgba(29,158,117,.2);color:#6DC4A0;}
+.cw{background:var(--ad);border:1px solid rgba(239,159,39,.2);color:#D4A854;}
+.cpk{background:var(--pkd);border:1px solid rgba(212,105,154,.2);color:#E8A0C0;}
+.cx{background:var(--rd);border:1px solid rgba(226,75,74,.2);color:#D47070;}
+.div{height:1px;background:var(--border);margin:22px 0;position:relative;}
+.div span{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 11px;font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="tab active" onclick="sp('calc',this)">⚡ Calculator</div>
+  <div class="tab" onclick="sp('warrior',this)">⚔️ Warrior Score</div>
+  <div class="tab" onclick="sp('output',this)">⚡ Output+Cognitive</div>
+  <div class="tab" onclick="sp('hrv',this)">💓 HRV</div>
+  <div class="tab" onclick="sp('sleep',this)">🌙 Sleep</div>
+  <div class="tab" onclick="sp('bp',this)">❤️ Blood Pressure</div>
+  <div class="tab" onclick="sp('nut',this)">🔥 Nutrition</div>
+  <div class="tab" onclick="sp('body',this)">📊 Body Comp</div>
+  <div class="tab" onclick="sp('cycle',this)">📅 Cycle Guide</div>
+  <div class="tab" onclick="sp('act',this)">🎯 Activities</div>
+  <div class="tab" onclick="sp('spo2',this)">🫁 SpO2</div>
+  <div class="tab" onclick="sp('notion',this)">📋 Notion Guide</div>
+</div>
+
+<!-- ═══ CALCULATOR ═══ -->
+<div class="page active" id="page-calc">
+<div class="cw">
+  <div class="ct">⚡ Warrior OS — Live Score Calculator</div>
+  <div class="cs">Enter morning numbers from Welltory. Cycle Day adjusts scores, shows phase guidance and specific activities for today.</div>
+  <div class="ig">
+    <div class="inp"><label>HRV Score (0–100)</label><input id="i-hrv" type="number" value="75" min="0" max="100"></div>
+    <div class="inp"><label>Energy (0–100)</label><input id="i-energy" type="number" value="80" min="0" max="100"></div>
+    <div class="inp"><label>Focus (0–100)</label><input id="i-focus" type="number" value="70" min="0" max="100"></div>
+    <div class="inp"><label>AMO50 Tension</label><input id="i-amo" type="number" value="25" min="0" max="100"></div>
+    <div class="inp"><label>Stress (0–100)</label><input id="i-stress" type="number" value="35" min="0" max="100"></div>
+    <div class="inp"><label>Sleep Hours</label><input id="i-sleep" type="number" value="7.5" min="0" max="14" step="0.5"></div>
+    <div class="inp cyc"><label>Cycle Day (1–35)</label><input id="i-cycle" type="number" value="14" min="1" max="35"><div class="cpbadge" id="cpbadge"></div></div>
+    <div class="inp" style="border:1px solid rgba(127,119,221,.25);border-radius:6px;padding:6px 8px;background:rgba(127,119,221,.05)">
+      <label style="color:#7F77DD">ADHD Intensity</label>
+      <select id="i-adhd" style="width:100%;background:var(--card);border:1px solid rgba(127,119,221,.3);border-radius:5px;padding:6px 8px;color:var(--text);font-family:var(--mono);font-size:11px;margin-top:3px;outline:none;">
+        <option value="0">Low — meds working · smooth</option>
+        <option value="5" selected>Medium — friction present</option>
+        <option value="12">High — exec dysfunction</option>
+        <option value="20">Crisis — full shutdown</option>
+      </select>
+    </div>
+    <div class="inp" style="border:1px solid rgba(239,159,39,.2);border-radius:6px;padding:6px 8px;background:rgba(239,159,39,.04)">
+      <label style="color:var(--amber)">Entry Date</label>
+      <input id="i-date" type="date" style="width:100%;background:var(--card);border:1px solid rgba(239,159,39,.3);border-radius:5px;padding:6px 8px;color:var(--text);font-family:var(--mono);font-size:11px;margin-top:3px;outline:none;color-scheme:dark;">
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:0;">
+    <button class="cbtn" onclick="calc()" style="margin-bottom:0;">Calculate + Save Entry →</button>
+    <button onclick="clearFields()" style="background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">✕ Clear</button>
+  </div>
+  
+<!-- HISTORY PANEL -->
+<div id="history-wrap" style="margin-top:12px;">
+  <!-- THIS WEEK STRIP -->
+  <div class="hpanel" style="margin-bottom:8px;">
+    <div class="hh" onclick="togglePanel('week-body','week-chev')">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="hht">📈 This Week</span>
+        <span class="streak-badge" id="streak-badge">—</span>
+      </div>
+      <span class="hchev" id="week-chev">▾</span>
+    </div>
+    <div class="hbody" id="week-body">
+      <div class="spark" id="spark-week"></div>
+      <div style="display:flex;gap:12px;margin-top:6px;margin-bottom:2px;">
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:6px;border-radius:2px;background:var(--teal);opacity:.8"></span>Final Score</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:6px;border-radius:2px;background:#E24B4A;opacity:.7"></span>IR Load (lower=better)</span>
+      </div>
+      <div id="week-save-note" style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;margin-top:2px;"></div>
+    </div>
+  </div>
+  <!-- FULL HISTORY -->
+  <div class="hpanel">
+    <div class="hh" onclick="togglePanel('hist-body','hist-chev')">
+      <span class="hht">🗂 Session History</span>
+      <span class="hchev" id="hist-chev">▾</span>
+    </div>
+    <div class="hbody" id="hist-body">
+      <!-- Week navigation -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <button class="hnav" onclick="shiftWeek(-1)">← Prev</button>
+        <span id="week-label" style="font-family:var(--mono);font-size:10px;color:var(--text2);"></span>
+        <button class="hnav" onclick="shiftWeek(1)">Next →</button>
+      </div>
+      <!-- Week sparkline for nav view -->
+      <div class="spark" id="spark-nav" style="margin-bottom:4px;"></div>
+      <div style="display:flex;gap:12px;margin-bottom:10px;">
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:6px;border-radius:2px;background:var(--teal);opacity:.8"></span>Final Score</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:6px;border-radius:2px;background:#E24B4A;opacity:.7"></span>IR Load</span>
+      </div>
+      <!-- Day entries for this nav week -->
+      <div id="nav-day-list"></div>
+      <!-- Expanded entry detail -->
+      <div id="entry-detail" style="display:none;"></div>
+      <div class="hfooter" style="margin-top:8px;">
+        <span class="hfooter-avg" id="hist-avg"></span>
+        <button class="hclear" onclick="clearHistory()">Clear all history</button>
+      <button class="hclear" style="border-color:rgba(55,138,221,.3);color:var(--blue);" onclick="exportWeekSummary()">📋 Export week</button>
+      </div>
+      <button class="nsync-btn" onclick="openSyncModal()">
+        <span>⬆</span> Sync to Notion Hub
+      </button>
+    </div>
+  </div>
+</div>
+<div class="results" id="results">
+    <div class="cycb" id="cycb"><div class="cyct" id="cyct"></div><div id="cycd"></div></div>
+    <div class="rcards">
+      <div class="rc"><div class="rl">Output Capacity</div><div class="rv" id="r-out">—</div><div class="rs" id="rs-out"></div><div class="rbar"><div class="rfill" id="rb-out"></div></div></div>
+      <div class="rc"><div class="rl">Cognitive Capacity</div><div class="rv" id="r-cog">—</div><div class="rs" id="rs-cog"></div><div class="rbar"><div class="rfill" id="rb-cog"></div></div></div>
+      <div class="rc"><div class="rl">Warrior Score</div><div class="rv" id="r-war">—</div><div class="rs" id="rs-war"></div><div class="rbar"><div class="rfill" id="rb-war"></div></div></div>
+      <div class="rc"><div class="rl">Burnout Risk</div><div class="rv" id="r-burn" style="font-size:16px">—</div><div class="rs" id="rs-burn"></div></div>
+      <div class="rc"><div class="rl">IR Load Score</div><div class="rv" id="r-ir" style="font-size:20px">—</div><div class="rs" id="rs-ir"></div></div>
+      <div class="rc"><div class="rl">Sleep Debt</div><div class="rv" id="r-slp" style="font-size:12px;margin-top:4px;line-height:1.3">—</div></div>
+      <div class="rc"><div class="rl">Cycle Adj Score</div><div class="rv" id="r-cycadj">—</div><div class="rs" id="rs-cycadj"></div><div class="rbar"><div class="rfill" id="rb-cycadj"></div></div></div>
+      <div class="rc" style="border-color:rgba(127,119,221,.35);background:rgba(127,119,221,.07)"><div class="rl" style="color:#7F77DD">Final Score (ADHD)</div><div class="rv" id="r-final" style="color:#7F77DD">—</div><div class="rs" id="rs-final" style="color:#7F77DD"></div><div class="rbar"><div class="rfill" id="rb-final" style="background:#7F77DD"></div></div></div>
+    </div>
+    <div class="zb" id="zb"><div class="zbt" id="zbt"></div><div class="zbb" id="zbb"></div>
+    <div id="phase-countdown" style="display:none;font-family:var(--mono);font-size:10px;opacity:.7;margin-top:4px;padding-top:6px;border-top:1px solid rgba(255,255,255,.15);"></div></div>
+    <div class="ao" id="ao">
+      <div class="aot">Today's recommended activities</div>
+      <div class="aos"><div class="aol" id="lw"></div><div class="aoi" id="aw"></div></div>
+      <div class="aos" style="margin-top:7px"><div class="aol" id="lh"></div><div class="aoi" id="ah"></div></div>
+      <div class="aos" style="margin-top:7px"><div class="aol" id="lc"></div><div class="aoi" id="ac"></div></div>
+      <div class="aos" style="margin-top:7px"><div class="aol" id="lr"></div><div class="aoi" id="ar"></div></div>
+      <div class="aos" style="margin-top:7px;border-top:1px solid var(--border);padding-top:7px"><div class="aol" style="color:var(--red)">⛔ Avoid today</div><div class="aoi" id="aav"></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ WARRIOR SCORE ═══ -->
+<div class="page" id="page-warrior">
+<div class="sec">
+  <div class="sh"><span class="si">⚔️</span><div><div class="st">Warrior Score</div><div class="ss">Master readiness. Output 50% + Cognitive 30% + Burnout 20%. Cycle-adjusted thresholds in parentheses for menstrual/luteal phases.</div></div></div>
+  <div class="co cpk"><span>📅</span><span><strong>Cycle note for you:</strong> Warrior Score runs 8–15pts lower during Days 1–6 (menstrual) and 20–35 (luteal). This is progesterone and prostaglandins — not protocol failure. ADHD-PI + alexithymia means you may feel "fine" while the score accurately reflects lower capacity. Trust the data.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Warrior Score</div><div class="scf">Output×0.50 + Cognitive×0.30 + BurnoutNum×0.20</div></div><span class="scr">0–100</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">⚡</div><div class="ts">85–100<br><span style="font-size:8px;opacity:.7">75+ lut/men</span></div></div><div class="tr"><div class="trl">ELITE — System Optimal</div><div class="trb">All systems aligned. Peak window. New patterns, hard decisions, demanding work all available. Set 90-min timer BEFORE starting — hyperfocus is an asset today but needs a container.<span class="act">✅ Complex work 4–5h · New crochet patterns · Full meal prep · Hard conversations · 90-min timers · Eat every 4h</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">✅</div><div class="ts">70–84<br><span style="font-size:8px;opacity:.7">60+ lut</span></div></div><div class="tr"><div class="trl">OPTIMAL — Perform</div><div class="trb">Solid readiness. Your standard good-day range. Real capacity for meaningful work. Familiar patterns, full laundry, familiar dramas.<span class="act">✅ Deep work 2–3h · Familiar crochet · Laundry start-to-finish · Moderate exercise · 90-min timers</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">55–69<br><span style="font-size:8px;opacity:.7">45+ lut</span></div></div><div class="tr"><div class="trl">MODERATE — Manage Output</div><div class="trb"><strong>ADHD-PI most dangerous zone</strong> — inattentive type often doesn't notice the drop. Alexithymia means you may feel fine while this score is accurate. Simple crochet, rewatched dramas, ONE household task.<span class="act">✅ Simple crochet rows (no counting) · Rewatched comfort drama · ONE household task only · 60-min MAX</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">40–54</div></div><div class="tr"><div class="trl">CAUTION — Protect Resources</div><div class="trb">Depleted. Urgency you feel is executive function impairment + delayed emotional awareness — not a real action signal. Micro-tasks only, crochet if soothing, comfort rewatch.<span class="act">✅ Diamond painting (pre-sorted, one color) · Simple crochet · Comfort rewatch · ONE micro-task under 5 min</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–39</div></div><div class="tr"><div class="trl">RECOVERY PROTOCOL — Stop</div><div class="trb">System needs recovery. Pushing through with ADHD + ASD traits compounds dysfunction. Weighted blanket, familiar comfort content, simple crochet if hands need occupying.<span class="act">✅ Weighted blanket · Comfort drama (already watched) · Simple crochet if calming · ⛔ No work · ⛔ No decisions</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ OUTPUT + COGNITIVE ═══ -->
+<div class="page" id="page-output">
+<div class="sec">
+  <div class="sh"><span class="si">⚡</span><div><div class="st">Output Capacity</div><div class="ss">HRV 30% + Energy 35% + Focus 20% + Sleep 15%</div></div></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Output Capacity</div><div class="scf">HRV×0.30 + Energy×0.35 + Focus×0.20 + min(Sleep/7.5×100,100)×0.15</div></div><span class="scr">0–100</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">⚡</div><div class="ts">85–100</div></div><div class="tr"><div class="trl">Full Tank</div><div class="trb">All four inputs green. Maximum fuel.<span class="act">Max work 4–5h · Full intensity exercise · All tasks available</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">✅</div><div class="ts">70–84</div></div><div class="tr"><div class="trl">Strong Capacity</div><div class="trb">Real energy available, one input slightly reduced.<span class="act">Max 3h work · Exercise 75–80% · 75–85% capacity</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">55–69</div></div><div class="tr"><div class="trl">Reduced Capacity</div><div class="trb">Quality degrades after 90 min before you notice — especially with working memory impairment.<span class="act">Max 90-min block then full break · Light movement · 50–65% capacity</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">40–54</div></div><div class="tr"><div class="trl">Low Capacity</div><div class="trb">Energy burning faster than produced.<span class="act">Max 45-min easy tasks · 10-min walk · 30–40% capacity</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–39</div></div><div class="tr"><div class="trl">Depleted</div><div class="trb">Below quality threshold. Compounding debt.<span class="act">Rest and nourishment only · Recovery is the task</span></div></div></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sh"><span class="si">🧠</span><div><div class="st">Cognitive Capacity</div><div class="ss">(100−Tension)×50% + Focus×50%. What KIND of work, not just duration. With ADHD-PI + working memory disorder, low scores mean task initiation, sequencing, and error-checking fail simultaneously.</div></div></div>
+  <div class="co cpk"><span>🧠</span><span><strong>Trust this score even when you feel like you should be able to do more.</strong> Alexithymia means you may not feel the cognitive decline. Below 65, attempting complex work creates more errors than output — and you won't notice until later.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Cognitive Capacity</div><div class="scf">(100−AMO50)×0.5 + Focus×0.5</div></div><span class="scr">0–100</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">🧠</div><div class="ts">75–100</div></div><div class="tr"><div class="trl">Full Cognitive Access</div><div class="trb">Working memory, task sequencing, executive function all available.<span class="act">✅ New crochet patterns · Complex meal planning · Learning · New diamond painting · Pattern reading</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">65–74</div></div><div class="tr"><div class="trl">Routine Cognition</div><div class="trb">Familiar work fine. New complex sequences carry higher error risk.<span class="act">✅ Known patterns · Familiar recipes · Communication · Reviewing existing work</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">55–64</div></div><div class="tr"><div class="trl">Checklist Mode</div><div class="trb">Pre-planned sequences only. Do not generate new plans today.<span class="act">✅ Written checklists only · Single-color diamond painting · Simple stitches · ⛔ No new patterns</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">45–54</div></div><div class="tr"><div class="trl">Impaired</div><div class="trb">Decision fatigue certain. Errors you won't notice until later.<span class="act">✅ Comfort rewatch (no subtitles) · Simple crochet (no counting) · ⛔ No decisions</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–44</div></div><div class="tr"><div class="trl">Cognitive Rest</div><div class="trb">Rest is genuinely more productive than attempting work.<span class="act">⛔ No cognitive work · Sensory comfort · Rest</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ HRV ═══ -->
+<div class="page" id="page-hrv">
+<div class="sec">
+  <div class="sh"><span class="si">💓</span><div><div class="st">HRV Metrics Reference</div><div class="ss">rMSSD Zone · HRV Confidence · Autonomic Balance · ANS State · Coherence · Tension Risk · Training Readiness. Enter Welltory values left-to-right matching the property order below.</div></div></div>
+  <div class="co cpk"><span>📅</span><span><strong>Cycle context:</strong> Days 1–3 → HRV low (prostaglandins). Days 5–7 → rising. Days 8–13 → often best scores. Days 14–19 → peak. Days 20–35 → progressive decline is normal. Don't compare luteal readings to ovulatory baseline — they're a different biological state.</span></div>
+  <div class="co ci"><span>📋</span><span><strong>Welltory entry order</strong> (reorder your Notion HRV columns to match this): HRV Score → Stress → Energy → Focus → ANS SNS → ANS PSNS → Coherence Index → Measurement HR → Mean RR → SDNN → rMSSD → pNN50 → AMO50 → Total Power → HF → LF → VLF. Formulas go at the far right.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">HRV Zone (rMSSD)</div></div><span class="scr">ms</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">⚡</div><div class="ts">80+ ms<br>Elite</div></div><div class="tr"><div class="trl">Elite Recovery</div><div class="trb">Deep parasympathetic. Your ceiling: 98ms (May 10). Verify with pNN50 ≥20 for full confidence.<span class="act">✅ Push hard · Note last night's conditions — replicate them</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">✅</div><div class="ts">65–79 ms<br>Optimal</div></div><div class="tr"><div class="trl">Optimal Recovery</div><div class="trb">Well recovered. Full function with boundaries.<span class="act">✅ Standard demanding work · Training 80–90%</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">50–64 ms<br>Baseline</div></div><div class="tr"><div class="trl">Baseline — Often Luteal/Menstrual</div><div class="trb">Functional. Common during hormonal phases — not always a problem.<span class="act">⚠️ Moderate work · 65–75% training · Prioritize 7.5h sleep tonight</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">30–49 ms<br>Low</div></div><div class="tr"><div class="trl">Low — Sympathetic Dominant</div><div class="trb">Your May 11 was 44ms — correctly predicted Zone 2.<span class="act">⚠️ Light movement only · Reduce cognitive load · Check SpO2 pattern</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–29 ms<br>Very Low</div></div><div class="tr"><div class="trl">Very Low</div><div class="trb">Significant stress OR menstrual days 1–3. Log cycle day to distinguish.<span class="act">🔴 Rest only · No training · Heating pad if cramping</span></div></div></div>
+  </div>
+  <div class="div"><span>other hrv scores</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Tension Risk (AMO50)</div><div class="scf">Lower = better. Your target: consistently below 25</div></div><span class="scr">AMO50</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">🟢</div><div class="ts">0–20<br>Low</div></div><div class="tr"><div class="trl">Low Tension</div><div class="trb">Parasympathetic dominant. IR management optimal. Your May 9: AMO50 17.<span class="act">✅ Full Cognitive Capacity · IR management optimal</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">21–30<br>Moderate</div></div><div class="tr"><div class="trl">Moderate Tension</div><div class="trb">Some sympathetic activation. Watch for consecutive days.<span class="act">⚠️ Slightly reduce cognitive demands</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">31–45<br>Elevated</div></div><div class="tr"><div class="trl">Elevated — Burnout Risk → Yellow</div><div class="trb">This threshold triggers Monitor regardless of HRV. Cognitive Capacity compressed. May 11 AMO50 34 dropped Cognitive to 72 despite Focus 77.<span class="act">⚠️ Reduce complexity · Low-carb meals · No stimulants after noon</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">46+<br>High</div></div><div class="tr"><div class="trl">Sympathetic Overdrive</div><div class="trb">ADHD + high AMO50 = impulsivity and reactivity amplified.<span class="act">🔴 Recovery protocol · Identify stressor · No major decisions</span></div></div></div>
+  </div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Training Readiness</div><div class="scf">Autonomic Balance ≥80 AND rMSSD ≥70 → Full Send · AutoBal ≥65 → Moderate · etc.</div></div><span class="scr">4 states</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">🟢</div><div class="ts">Full Send</div></div><div class="tr"><div class="trl">Full Send — Max Intensity</div><div class="trb">Both Autonomic Balance ≥80 AND rMSSD ≥70. Positive training adaptation today.<span class="act">✅ Heavy resistance · HIIT · Long cardio · PR attempts</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">Moderate</div></div><div class="tr"><div class="trl">Moderate — 70% Intensity</div><div class="trb">Good but not peak. Max effort creates unnecessary stress.<span class="act">✅ Moderate weights 70–75% max · Steady cardio · Skill work</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">Light Only</div></div><div class="tr"><div class="trl">Light Only — Movement Not Intensity</div><div class="trb">Training at this state delays recovery.<span class="act">✅ Walk 20–30 min · Yoga/mobility · ⛔ No lifting · ⛔ No cardio above zone 2</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">Rest Day</div></div><div class="tr"><div class="trl">Rest Day — Recovery Only</div><div class="trb">Training today is counterproductive. For IR specifically, overtraining raises cortisol which directly worsens glucose regulation.<span class="act">✅ Gentle walk only · ⛔ No resistance · ⛔ No cardio</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SLEEP ═══ -->
+<div class="page" id="page-sleep">
+<div class="sec">
+  <div class="sh"><span class="si">🌙</span><div><div class="st">Sleep Scores</div><div class="ss">Sleep Recovery Contribution · Sleep Debt · SpO2 Flag · Snore Risk. Female sleep architecture varies significantly across the cycle.</div></div></div>
+  <div class="co cpk"><span>📅</span><span><strong>Cycle + sleep:</strong> Progesterone (Days 20–35) raises body temperature and disrupts deep sleep. Menstrual cramps (Days 1–6) fragment sleep. Lower Sleep Recovery scores during these windows are expected — not a failure to sleep correctly.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Sleep Recovery Contribution</div><div class="scf">Deep Sleep 35% + Hours 30% + SpO2 20% + Awakenings 15%</div></div><span class="scr">0–100</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">80–100</div></div><div class="tr"><div class="trl">Excellent</div><div class="trb">Full contribution to Output Capacity. Tomorrow likely Zone 1–2. Note conditions — replicate.<span class="act">✅ Replicate tonight's conditions</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">65–79</div></div><div class="tr"><div class="trl">Good</div><div class="trb">Solid recovery. Minor gap in one dimension.<span class="act">✅ Identify weak dimension (hours vs SpO2 vs awakenings)</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">50–64</div></div><div class="tr"><div class="trl">Poor — Common in Menstrual/Late Luteal</div><div class="trb">IR impact tomorrow. Heating pad if cramping. Progesterone-driven in luteal phase.<span class="act">⚠️ Bed 30 min earlier · No sodium after 7pm · Heating pad if needed</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–49</div></div><div class="tr"><div class="trl">Significant Deficit</div><div class="trb">Tomorrow will be Zone 2–3. Adjust tomorrow's schedule NOW before sleeping.<span class="act">🔴 Pre-plan easier tasks for tomorrow · Tonight is the only priority</span></div></div></div>
+  </div>
+  <div class="div"><span>spo2 flag</span></div>
+  <div class="co cx"><span>🚨</span><span><strong>Your SpO2 frequently reads 89–93%.</strong> Normal is 95%+. Combined with 39–60 snore events per night this pattern warrants attention. Low overnight oxygen elevates cortisol, impairs glucose processing, and suppresses HRV recovery — directly relevant to your IR protocol. See the SpO2 tab for device recommendations.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">SpO2 Flag</div></div><span class="scr">%</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">95–100%<br>Normal</div></div><div class="tr"><div class="trl">Normal Oxygen</div><div class="trb">Full overnight oxygen delivery. HRV recovery unimpaired by hypoxia.<span class="act">✅ Note what was different — sleep position? low sodium? no alcohol?</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">92–94%<br>Borderline</div></div><div class="tr"><div class="trl">Borderline — Your Frequent Range</div><div class="trb">Mild desaturation. Multiple consecutive nights here suggests a structural issue worth noting.<span class="act">⚠️ Side sleeping position · Note correlation to snore count</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">88–91%<br>Hypoxic Risk</div></div><div class="tr"><div class="trl">Hypoxic Risk</div><div class="trb">Cells not getting adequate oxygen for tissue repair or glucose processing.<span class="act">🚨 Log this reading · Side sleep · Head elevation · Note snore count that night</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–87%<br>Critical</div></div><div class="tr"><div class="trl">Critical</div><div class="trb">This level warrants medical evaluation — not just lifestyle management.<span class="act">🔴 Seek medical evaluation · Bring SpO2 data</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ BLOOD PRESSURE ═══ -->
+<div class="page" id="page-bp">
+<div class="sec">
+  <div class="sh"><span class="si">❤️</span><div><div class="st">Blood Pressure Scores</div><div class="ss">BP Status · Pulse Pressure · MAP. Female context: estrogen is vasodilatory. BP naturally lowest in follicular, highest in luteal.</div></div></div>
+  <div class="co cpk"><span>📅</span><span><strong>Cycle + BP:</strong> Diastolic of 82 in luteal vs 78 in follicular is normal hormonal variation — not a protocol failure. Track readings by cycle phase over time, not individual readings. Your May 9 (111/77) and May 11 (108/79) are both Optimal — consistently good systolic control.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">BP Status</div><div class="scf">AHA 2017 — female context. Systolic control is your strong point.</div></div><span class="scr">mmHg</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">Optimal<br>&lt;120/80</div></div><div class="tr"><div class="trl">✅ Optimal</div><div class="trb">May 9: 111/77 · May 11: 108/79. Systolic excellent. Note sodium intake on these days.<span class="act">✅ Protocol working · Note what you ate</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🟡</div><div class="ts">Elevated<br>120–129/&lt;80</div></div><div class="tr"><div class="trl">🟡 Elevated</div><div class="trb">Systolic up, diastolic still below 80. Common after high-sodium day.<span class="act">⚠️ Extra water · Light walk · Check sodium</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟠</div><div class="ts">Stage 1<br>80–89 dia</div></div><div class="tr"><div class="trl">🟠 Stage 1 — Common in Luteal</div><div class="trb">Your diastolic reaches 81–85 frequently. Check if these cluster in luteal phase before assuming protocol failure. Log Cycle Day with every BP reading.<span class="act">⚠️ Log cycle day · Sodium under 1800mg · 20-min walk</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">Low<br>&lt;90/60</div></div><div class="tr"><div class="trl">🔵 Low — Possible Follicular</div><div class="trb">Estrogen vasodilation can push BP low in follicular phase. Dizziness on standing is a flag.<span class="act">⚠️ Hydrate · Sit before standing · Re-measure after 5 min rest</span></div></div></div>
+  </div>
+  <div class="co cs"><span>💡</span><span><strong>Formula changes for female context:</strong> Add a <strong>Cycle Day</strong> field to your BP database alongside Time of Day. Your BP Trend formula should flag when readings cluster in luteal phase differently from follicular. Add this note property to cross-reference patterns over 3 months.</span></div>
+</div>
+</div>
+
+<!-- ═══ NUTRITION ═══ -->
+<div class="page" id="page-nut">
+<div class="sec">
+  <div class="sh"><span class="si">🔥</span><div><div class="st">Nutrition Scores</div><div class="ss">Protein Gap · Sodium Alert · IR Load · Protein Efficiency. Cycle-adjusted craving guidance built in.</div></div></div>
+  <div class="co cpk"><span>🍫</span><span><strong>Cravings during menstrual + luteal phases are hormonal — not willpower failures.</strong> Prostaglandins drive carb/salt cravings in menstrual. Progesterone drop drives sugar/carb cravings in luteal. Restriction during these phases increases binge risk. The protocol redirects rather than denies.</span></div>
+  <div class="co cpk"><span>🍬</span><span><strong>Craving redirect guide:</strong> Chocolate craving → dark chocolate 70%+ + protein shake · Salt craving → electrolyte drink instead of processed food · Carb craving → sweet potato, rice, or fruit with protein · Sugar craving → Greek yogurt + fruit · These satisfy the hormonal signal while staying closer to protocol.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Protein Gap</div><div class="scf">Total Protein vs 180g target. Your average: 98g (54% of target)</div></div><span class="scr">grams</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">180g+<br>Target</div></div><div class="tr"><div class="trl">Target Met</div><div class="trb">You haven't hit this yet — highest logged was 137g. Screenshot what you ate on close days.<span class="act">✅ Note your meal pattern · Template day · Replicate</span></div></div></div>
+    <div class="tier t2"><div class="tl"><div class="tb">🔵</div><div class="ts">150–179g<br>Close</div></div><div class="tr"><div class="trl">Close — One Meal Away</div><div class="trb">Greek yogurt + protein powder smoothie = +40–50g closes this gap entirely.<span class="act">✅ Add one high-protein item to next meal</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">100–149g<br>Short</div></div><div class="tr"><div class="trl">Your Typical Range</div><div class="trb">Breakfast protein is the highest-leverage change. 40–50g at breakfast changes the whole day's pattern.<span class="act">⚠️ Protein anchor at breakfast · 40g minimum · Smoothie as daily default</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">0–99g<br>Deficit</div></div><div class="tr"><div class="trl">Significant Deficit</div><div class="trb">Especially risky during menstrual + luteal phases when appetite suppresses naturally. Muscle catabolism risk.<span class="act">🔴 Protein shake now if before 6pm · 30g minimum per remaining meal</span></div></div></div>
+  </div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Sodium Alert</div><div class="scf">Total Sodium vs 2300mg limit. Your average: 3,236mg (40% over consistently)</div></div><span class="scr">mg</span></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">0–2300mg<br>On Target</div></div><div class="tr"><div class="trl">✅ Within Limit</div><div class="trb">IR protocol sodium target met. Note what you ate — this is your template day.<span class="act">✅ Replicate food choices · Log which meals kept sodium low</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">2301–3000mg<br>Over</div></div><div class="tr"><div class="trl">🟡 Over Limit</div><div class="trb">One high-sodium meal pushed it over. Drink extra water, target under 2000mg tomorrow.<span class="act">⚠️ Identify high-sodium item · +8oz water today · Under 2000mg tomorrow</span></div></div></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">3001mg+<br>Your Average</div></div><div class="tr"><div class="trl">🔴 High — Your Consistent Pattern</div><div class="trb">Fluid retention masks body comp progress. BP diastolic creeps up. IR harder to manage. Culprits: restaurant food, processed proteins, condiments.<span class="act">🔴 Audit most common meals for sodium · Low-sodium protein sources · Cook at home where possible · Water to 100oz+</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ BODY COMP ═══ -->
+<div class="page" id="page-body">
+<div class="sec">
+  <div class="sh"><span class="si">📊</span><div><div class="st">Body Composition Scores</div><div class="ss">What changes when · RENPHO + ZOZO interpretation · Composition Priority · Visceral Fat Status · Recomp Signal.</div></div></div>
+  <div class="co ci"><span>ℹ️</span><span><strong>Female body comp context:</strong> Female body fat thresholds differ from male. At 31, healthy female body fat range is 21–33%. At 46.4% your primary protocol target is visceral fat reduction, not total weight. Visceral fat at 28–29 is your #1 IR driver.</span></div>
+  <div class="co cpk"><span>📅</span><span><strong>Cycle + body comp:</strong> Weight can fluctuate 2–5 lbs across the cycle due to progesterone-driven fluid retention in luteal phase. Do not compare luteal weight to follicular weight. ZOZO circumferences are more reliable than scale during luteal phase because they're less affected by fluid.</span></div>
+  <div class="sc">
+    <div class="sch"><div><div class="scn">Visceral Fat Status</div><div class="scf">Female thresholds: Normal &lt;13 · Elevated 13–19 · High 20–24 · Very High 25+</div></div><span class="scr">RENPHO units</span></div>
+    <div class="tier t5"><div class="tl"><div class="tb">🔴</div><div class="ts">25+<br>Very High</div></div><div class="tr"><div class="trl">🔴 Very High — Primary IR Driver</div><div class="trb">Your current: 28–29. Every point this drops improves insulin sensitivity directly. This is your #1 body comp goal ahead of everything else.<span class="act">🔴 Priority: sleep quality + sodium reduction + resistance training · Each point drop = meaningful IR improvement</span></div></div></div>
+    <div class="tier t4"><div class="tl"><div class="tb">🟠</div><div class="ts">20–24<br>High</div></div><div class="tr"><div class="trl">🟠 High</div><div class="trb">Significant IR impact. Protocol focus here above all else.<span class="act">⚠️ Consistent protocol · Progress is happening</span></div></div></div>
+    <div class="tier t3"><div class="tl"><div class="tb">🟡</div><div class="ts">13–19<br>Elevated</div></div><div class="tr"><div class="trl">🟡 Elevated</div><div class="trb">Above healthy threshold but meaningful improvement made.<span class="act">✅ Protocol on track · Keep going</span></div></div></div>
+    <div class="tier t1"><div class="tl"><div class="tb">✅</div><div class="ts">0–12<br>Healthy</div></div><div class="tr"><div class="trl">✅ Healthy Range</div><div class="trb">IR risk from visceral fat normalized. Maintain protocol.<span class="act">✅ Maintain · Focus shifts to performance</span></div></div></div>
+  </div>
+  <div class="div"><span>what changes when</span></div>
+  <div class="co ci"><span>📊</span><span><strong>Daily (mostly water/noise):</strong> Scale weight (±2–5 lbs luteal), Body Water %, Protein %. Don't act on single readings. <strong>Weekly (meaningful signal):</strong> Fat Mass, Lean Mass, ZOZO waist circumference. <strong>Monthly (real progress):</strong> Body Fat %, Skeletal Muscle %, Visceral Fat. Compare monthly not weekly.</span></div>
+  <div class="co cs"><span>💡</span><span><strong>The two numbers to check every week:</strong> Fat Mass (lbs) and ZOZO Waist (inches). If waist shrinks while scale is stable → recomp confirmed. If Fat Mass drops while Lean Mass holds → clean fat loss. These two together tell the true story.</span></div>
+</div>
+</div>
+
+<!-- ═══ CYCLE GUIDE ═══ -->
+<div class="page" id="page-cycle">
+<div class="sec">
+  <div class="sh"><span class="si">📅</span><div><div class="st">Cycle Phase Guide</div><div class="ss">How each phase affects scores, energy, cravings, sleep, and activities. Cycle expanded to 35 days max. Menstrual phase 1–6 days.</div></div></div>
+  <div class="co ci"><span>ℹ️</span><span>Add <strong>Cycle Day</strong> (Number, max 35) to your Hub Bio Log. Type today's day number — Day 1 = first day of bleeding. The calculator uses this to adjust all scores automatically. Also add to Blood Pressure database to track hormonal BP patterns.</span></div>
+  <div class="cc cc-m">
+    <div class="cct">🔴 Menstrual Phase — Day 1–6</div>
+    <div class="cr"><div class="crlb">HRV impact</div><div class="crv">Low days 1–3 (prostaglandins + blood loss). Rising by day 5–6. <strong>Do not compare to follicular baseline.</strong></div></div>
+    <div class="cr"><div class="crlb">Energy</div><div class="crv">Low to moderate. Iron depleting days 1–4. Fatigue is physiological — rest is appropriate, not weakness.</div></div>
+    <div class="cr"><div class="crlb">Cravings</div><div class="crv"><strong>HIGH.</strong> Carbs, chocolate, salty foods. Prostaglandins drive this. Redirect: dark chocolate + protein shake, sweet potato, electrolyte drink for salt cravings.</div></div>
+    <div class="cr"><div class="crlb">Score adjust</div><div class="crv">−5 to −8pts from Warrior Score. Zone 1 behavior appropriate at 75+.</div></div>
+    <div class="cr"><div class="crlb">Best activities</div><div class="crv">Crochet, diamond painting, comfort dramas, heating pad, gentle walks. <strong>Days 1–2: minimize standing household tasks.</strong></div></div>
+    <div class="cr"><div class="crlb">Nutrition</div><div class="crv">Iron-rich foods days 1–5: red meat, spinach, lentils. Pre-plan one higher-carb meal — track it, don't restrict. Protein shakes easier than cooking on cramp days.</div></div>
+  </div>
+  <div class="cc cc-f">
+    <div class="cct">🔵 Follicular Phase — Day 7–13</div>
+    <div class="cr"><div class="crlb">HRV impact</div><div class="crv">Rising steadily. Estrogen anti-inflammatory and vasodilatory. <strong>Best learning and performance window of the month.</strong></div></div>
+    <div class="cr"><div class="crlb">Energy</div><div class="crv">Rising. Best phase for new habits, new patterns, complex projects, deep cleaning.</div></div>
+    <div class="cr"><div class="crlb">Cravings</div><div class="crv">Lowest. Easiest phase for hitting protein target and staying under sodium limit.</div></div>
+    <div class="cr"><div class="crlb">Score adjust</div><div class="crv">Standard thresholds — may exceed usual baseline.</div></div>
+    <div class="cr"><div class="crlb">Best activities</div><div class="crv">New crochet techniques, complex diamond painting canvases, new Asian drama series, deep cleaning oven/air fryer, full meal prep batches.</div></div>
+    <div class="cr"><div class="crlb">Nutrition</div><div class="crv">Stock protocol-friendly foods now. Set up the next (luteal) phase. Use this energy window strategically.</div></div>
+  </div>
+  <div class="cc cc-o">
+    <div class="cct">✅ Ovulatory Phase — Day 14–20</div>
+    <div class="cr"><div class="crlb">HRV impact</div><div class="crv">Peak HRV. Estrogen + testosterone surge. Highest Warrior Scores happen here.</div></div>
+    <div class="cr"><div class="crlb">Energy</div><div class="crv">Peak physical and cognitive energy. Best window for demanding work and exercise.</div></div>
+    <div class="cr"><div class="crlb">Cravings</div><div class="crv">Moderate. <strong>Appetite may suppress — set meal reminders. Risk is undereating protein.</strong></div></div>
+    <div class="cr"><div class="crlb">Score adjust</div><div class="crv">Standard or above. Your true performance ceiling.</div></div>
+    <div class="cr"><div class="crlb">Best activities</div><div class="crv">Full meal prep, oven/air fryer deep clean, reorganizing spaces, complex crochet patterns, challenging diamond painting projects.</div></div>
+    <div class="cr"><div class="crlb">Nutrition</div><div class="crv">Set meal alarms — appetite suppression means protein slips. Resistance training most effective this phase for body recomposition.</div></div>
+  </div>
+  <div class="cc cc-l">
+    <div class="cct">💜 Luteal Phase — Day 21–35</div>
+    <div class="cr"><div class="crlb">HRV impact</div><div class="crv"><strong>Expect 10–20% lower than follicular baseline.</strong> Progesterone raises resting HR and reduces HRV. Normal — not protocol failure. ADHD symptoms often amplify (dopamine fluctuates with estrogen).</div></div>
+    <div class="cr"><div class="crlb">Energy</div><div class="crv">Declining especially days 27–35. Brain fog is real. Working memory impairment amplifies. Executive function decreases.</div></div>
+    <div class="cr"><div class="crlb">Cravings</div><div class="crv"><strong>HIGH and rising, peaks days 28–35.</strong> Serotonin drops → carb cravings = brain trying to self-regulate. Redirect: sweet potato, rice, fruit with protein, dark chocolate. Don't fight — redirect.</div></div>
+    <div class="cr"><div class="crlb">Score adjust</div><div class="crv"><strong>−10 to −15pts from all thresholds.</strong> Zone 1 behavior appropriate at Warrior Score 75+. Do NOT compare to ovulatory phase scores.</div></div>
+    <div class="cr"><div class="crlb">Best activities</div><div class="crv">Diamond painting (repetitive, satisfying), simple crochet rows, comfort dramas and pro wrestling, laundry, simple one-task household items.</div></div>
+    <div class="cr"><div class="crlb">Nutrition</div><div class="crv">Pre-plan: sweet potato, rice, fruit with protein, dark chocolate 70%+. <strong>This is a maintenance phase, not a performance phase.</strong> Reducing expectations is appropriate, not failure.</div></div>
+  </div>
+  <div class="div"><span>notion formulas — updated for 35-day cycle</span></div>
+  <div class="co cs"><span>💡</span><span>These formulas are updated for your 35-day cycle max and 6-day menstrual phase. Replace your existing Cycle Phase and Adjusted Guidance formulas with these.</span></div>
+  <div class="code pk" style="position:relative"><button class="cp" onclick="cp(this)">COPY</button>// Cycle Phase — paste into Warrior Master Hub Database
+// Updated for 35-day cycle max, 6-day menstrual phase
+if(empty(prop("Cycle Day")), "— Log cycle day",
+  if(prop("Cycle Day") <= 6, "🔴 Menstrual · Day " + format(prop("Cycle Day")) + " of 6 · scores −5–8pts · rest bias OK",
+    if(prop("Cycle Day") <= 13, "🔵 Follicular · Day " + format(prop("Cycle Day")) + " · rising energy · best learning window",
+      if(prop("Cycle Day") <= 20, "✅ Ovulatory · Day " + format(prop("Cycle Day")) + " · peak performance · push hard",
+        "💜 Luteal · Day " + format(prop("Cycle Day")) + " · scores −10–15pts · hormonal, not failure"))))</div>
+  <div class="code pk" style="position:relative;margin-top:8px"><button class="cp" onclick="cp(this)">COPY</button>// Adjusted Guidance — replaces Daily Guidance in HUD gallery
+// Shows zone + cycle context in one line
+if(empty(prop("Cycle Day")),
+  prop("Daily Guidance"),
+  if(prop("Cycle Day") <= 6,
+    prop("Daily Guidance") + " · 🔴 Menstrual day " + format(prop("Cycle Day")) + " · rest bias appropriate · iron + warmth",
+    if(prop("Cycle Day") >= 21,
+      prop("Daily Guidance") + " · 💜 Luteal day " + format(prop("Cycle Day")) + " · scores run 10–15pts lower · hormonal normal",
+      if(prop("Cycle Day") >= 14,
+        prop("Daily Guidance") + " · ✅ Ovulatory peak · use this window",
+        prop("Daily Guidance") + " · 🔵 Follicular rising · best learning window"))))</div>
+  <div class="code pk" style="position:relative;margin-top:8px"><button class="cp" onclick="cp(this)">COPY</button>// Cycle-adjusted Warrior Score threshold interpretation
+// Add as Formula property "Zone (Cycle Adjusted)"
+if(empty(prop("Cycle Day")),
+  prop("Zone"),
+  if(prop("Cycle Day") <= 6 or prop("Cycle Day") >= 21,
+    if(prop("Warrior Score") >= 75, "⚡ Zone 1 (cycle-adjusted)",
+      if(prop("Warrior Score") >= 60, "✅ Zone 2 (cycle-adjusted)",
+        if(prop("Warrior Score") >= 45, "🟡 Zone 3 (cycle-adjusted)",
+          "🔴 Recovery (cycle-adjusted)"))),
+    prop("Zone")))</div>
+</div>
+</div>
+
+<!-- ═══ ACTIVITIES ═══ -->
+<div class="page" id="page-act">
+<div class="sec">
+  <div class="sh"><span class="si">🎯</span><div><div class="st">Activity Guide by Zone</div><div class="ss">Every activity type matched to its zone — crocheting, diamond painting, meal prep, household tasks, Asian dramas, pro wrestling, and more.</div></div></div>
+  <div class="co ci"><span>ℹ️</span><span>Crochet and diamond painting are excellent Zone 3–4 anchors — enough sensory + attentional engagement to prevent rumination while requiring minimal executive function. Asian dramas with subtitles = Zone 2–3. Pro wrestling = Zone 3–4. Rewatched content = Zone 4–5. Comfort + familiar = lower zone requirement.</span></div>
+  <div class="az">
+    <div class="azh"><span class="azb zb1">ZONE 1 · 85–100</span><span class="azt">⚡ System Optimal</span><span class="aze">6–8h · 90-min blocks</span></div>
+    <div class="azbd">
+      <div class="azr"><div class="azc">Work</div><div class="aza">Complex problem solving · Financial tasks · Hard conversations · Learning new systems · Planning</div></div>
+      <div class="azr"><div class="azc">Household</div><div class="aza"><strong>Deep clean oven (full disassembly)</strong> · <strong>Full air fryer clean</strong> · <strong>Bleach sink + surrounding area</strong> · <strong>Microwave inside and out</strong> · Reorganize a space · Full grocery plan + shop</div></div>
+      <div class="azr"><div class="azc">Crochet</div><div class="aza">New patterns · New stitch types · Colorwork · Anything requiring sustained counting and attention · Starting a new project from the beginning</div></div>
+      <div class="azr"><div class="azc">Diamond painting</div><div class="aza">Complex multi-color sections · Sorting new bead trays · Starting a new canvas · Reading detailed chart sections</div></div>
+      <div class="azr"><div class="azc">Entertainment</div><div class="aza"><strong>Asian dramas:</strong> New shows, complex plots, full subtitle reading · <strong>Pro wrestling:</strong> Live events, PPVs, new storyline engagement</div></div>
+      <div class="azr"><div class="azc">Meal prep</div><div class="aza">Full session: plan + cook + portion + store · New recipes · Batch cooking complex dishes · Full protein target push (aim 180g)</div></div>
+    </div>
+    <div class="azav">⚠️ ADHD-PI Zone 1 trap: hyperfocus feels like an asset — but set 90-min timer BEFORE opening any task. Zone 1 without timers becomes Zone 3 by 2pm and you won't notice until the crash.</div>
+  </div>
+
+  <div class="az">
+    <div class="azh"><span class="azb zb2">ZONE 2 · 70–84</span><span class="azt">✅ Perform</span><span class="aze">4–5h · 90-min timers mandatory</span></div>
+    <div class="azbd">
+      <div class="azr"><div class="azc">Work</div><div class="aza">Familiar work systems · Communication · Admin · Reviewing existing material · Reversible decisions</div></div>
+      <div class="azr"><div class="azc">Household</div><div class="aza"><strong>Full laundry (load → transfer → fold → put away as one task)</strong> · Bleach sink · Microwave clean · Air fryer wipe-down · Dishes · Wipe counters and stovetop · Take out trash</div></div>
+      <div class="azr"><div class="azc">Crochet</div><div class="aza">Familiar patterns you've done before · Known stitch counts · No new techniques today · Continuing a project mid-way through</div></div>
+      <div class="azr"><div class="azc">Diamond painting</div><div class="aza">Large sections of a color you've already started · Sorting beads into trays you've already set up · No new chart reading needed</div></div>
+      <div class="azr"><div class="azc">Entertainment</div><div class="aza"><strong>Asian dramas:</strong> Shows you've started or familiar genres, subtitle reading fine · <strong>Pro wrestling:</strong> Familiar weekly programming and ongoing storylines</div></div>
+      <div class="azr"><div class="azc">Meal prep</div><div class="aza">Batch cooking familiar recipes · Pre-portioning known meals · Protein smoothie prep for the week · Reheating and portioning pre-made items</div></div>
+    </div>
+    <div class="azav">⚠️ ADHD-PI Zone 2 trap: you feel functional and push into Zone 1 work, then crash hard and lose tomorrow too. 90-min timers are not optional — set them before you start anything.</div>
+  </div>
+
+  <div class="az">
+    <div class="azh"><span class="azb zb3">ZONE 3 · 55–69</span><span class="azt">🟡 Manage Output</span><span class="aze">2–3h · 60-min MAX</span></div>
+    <div class="azbd">
+      <div class="azr"><div class="azc">Work</div><div class="aza">Checklist tasks only · Simple templated emails · Nothing requiring original thought</div></div>
+      <div class="azr"><div class="azc">Household</div><div class="aza"><strong>ONE task, not both:</strong> Either start laundry OR bleach sink (not both) · Quick wipe of one surface · Unload dishwasher · Refill water bottles · One bag of trash</div></div>
+      <div class="azr"><div class="azc">Crochet</div><div class="aza">Simple repetitive stitches — chains, single crochet rows. No counting, no new patterns. <strong>Hands busy = sensory anchor.</strong> If you lose count, it doesn't matter.</div></div>
+      <div class="azr"><div class="azc">Diamond painting</div><div class="aza">One pre-sorted color · Small section · No chart reference needed · Tray already set up before this session</div></div>
+      <div class="azr"><div class="azc">Entertainment</div><div class="aza"><strong>Asian dramas:</strong> Already-watched comfort shows — you know what happens so subtitles need less active attention · <strong>Pro wrestling:</strong> Background or familiar replays</div></div>
+      <div class="azr"><div class="azc">Meal prep</div><div class="aza">Reheat pre-made food only · Familiar protein smoothie (same recipe every time) · Simple assembly, no cooking · Set meal alarm</div></div>
+    </div>
+    <div class="azav">⛔ Avoid: New crochet patterns · Sorting new diamond painting trays · New recipes · Reorganizing anything · New shows requiring plot tracking · Any decision that matters today</div>
+  </div>
+
+  <div class="az">
+    <div class="azh"><span class="azb zb4">ZONE 4 · 40–54</span><span class="azt">🟠 Protect Resources</span><span class="aze">1–2h · 45-min cap · eat first</span></div>
+    <div class="azbd">
+      <div class="azr"><div class="azc">Work</div><div class="aza">Pre-committed obligations only · One item from a written checklist · Nothing that wasn't already planned before today started</div></div>
+      <div class="azr"><div class="azc">Household</div><div class="aza"><strong>One micro-task under 5 minutes:</strong> Bleach the sink (2 min) · OR transfer laundry if already running · OR wipe one surface · Anything that can stop immediately if fatigue hits</div></div>
+      <div class="azr"><div class="azc">Crochet</div><div class="aza">Simple rows of familiar stitch — if it's soothing, continue. If it requires any tracking, stop. The goal is sensory regulation not output. Progress doesn't matter today.</div></div>
+      <div class="azr"><div class="azc">Diamond painting</div><div class="aza">One color · Very small area · Pre-set up tray · No decisions whatsoever · Stop when tired, not when "done"</div></div>
+      <div class="azr"><div class="azc">Entertainment</div><div class="aza"><strong>Rewatched comfort dramas only</strong> — no new subtitles · <strong>Pro wrestling replays</strong> — familiar matches · Podcast or audiobook while lying down</div></div>
+      <div class="azr"><div class="azc">Nourishment</div><div class="aza">Protein smoothie (simple, same recipe) · Pre-portioned grab-and-go food · Eat something — anything with protein · Do NOT attempt meal prep in Zone 4</div></div>
+    </div>
+    <div class="azav">⛔ Avoid: Meal prep · Standing tasks · Cascading projects · Social performance · New content requiring attention · Decisions with consequences</div>
+  </div>
+
+  <div class="az">
+    <div class="azh"><span class="azb zb5">ZONE 5 · 0–39</span><span class="azt">🔴 Recovery Protocol</span><span class="aze">Rest only · You don't have to earn this</span></div>
+    <div class="azbd">
+      <div class="azr"><div class="azc">What to do</div><div class="aza">Weighted blanket · Heating pad if cramping · Horizontal rest · Sensory comfort items · Dim lighting if sensory-sensitive</div></div>
+      <div class="azr"><div class="azc">Household</div><div class="aza">Nothing — or one thing under 2 minutes if ignoring it causes more distress than doing it. Do not start anything you need to finish.</div></div>
+      <div class="azr"><div class="azc">Crochet</div><div class="aza">Only if it's soothing — stop immediately if it becomes frustrating. The goal is hand occupation for nervous system regulation, not any output. Frogging (undoing) is also fine.</div></div>
+      <div class="azr"><div class="azc">Diamond painting</div><div class="aza">Only if already set up, one color, no decisions. Stop without guilt. Progress does not matter today.</div></div>
+      <div class="azr"><div class="azc">Entertainment</div><div class="aza"><strong>Rewatched content only.</strong> No new shows. No new storylines. Familiar = safe. Predictability regulates without demanding. This is why rewatch culture exists for neurodivergent people — it's valid.</div></div>
+      <div class="azr"><div class="azc">Nourishment</div><div class="aza">Eat something simple with protein · Do not cook · Do not plan · Protein shake counts fully · Electrolyte drink for salt cravings · You do not have to earn rest</div></div>
+    </div>
+    <div class="azav">⛔ Everything that feels urgent in Zone 5 is ADHD-PI false alarm. The thing that feels like it must happen NOW can wait until tomorrow. It will still be there. Tomorrow is always the answer in Zone 5.</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SPO2 ═══ -->
+<div class="page" id="page-spo2">
+<div class="sec">
+  <div class="sh"><span class="si">🫁</span><div><div class="st">SpO2 Monitor — Should You Buy One?</div><div class="ss">Your Sleep as Android SpO2 data exists in the full export but is blank in nightly summaries. Here's what to know.</div></div></div>
+  <div class="co cw"><span>⚠️</span><span>Sleep as Android captures SpO2 only if your wearable has a built-in SpO2 sensor AND it's enabled in settings. Check Sleep as Android → Settings → Wearables → SpO2 tracking first before buying anything.</span></div>
+  <div class="dc">
+    <div class="dct">Option 1 — Check your current device (free)</div>
+    <div class="ddr"><div class="ddl">What to check</div><div class="ddv">Sleep as Android → Settings → Wearables → SpO2. If supported, enable it. Check if your watch model lists SpO2 as a feature.</div></div>
+    <div class="ddr"><div class="ddl">Accuracy</div><div class="ddv">Wrist-based SpO2 is ±2–3% — adequate for trend monitoring</div></div>
+    <div class="ddr"><div class="ddl">Cost</div><div class="ddv">$0 if your current watch supports it</div></div>
+  </div>
+  <div class="dc">
+    <div class="dct">Option 2 — Wellue O2Ring finger oximeter (~$70)</div>
+    <div class="ddr"><div class="ddl">Accuracy</div><div class="ddv">±1% — significantly better than wrist-based</div></div>
+    <div class="ddr"><div class="ddl">What it shows</div><div class="ddv">Full-night SpO2 graph → when dips occur, how long, how many · Correlate with snore events from Sleep as Android for complete airway picture</div></div>
+    <div class="ddr"><div class="ddl">Worth it if</div><div class="ddv">Snore events consistently 39–60/night AND you frequently feel unrefreshed despite 7+ hours</div></div>
+    <div class="ddr"><div class="ddl">For you specifically</div><div class="ddv">Your snore + SpO2 pattern is the most actionable gap in your current data. This closes it.</div></div>
+  </div>
+  <div class="dc">
+    <div class="dct">Option 3 — Use existing data differently (free)</div>
+    <div class="ddr"><div class="ddl">What to add</div><div class="ddv">Select property "Wake Quality" to Sleep Analytics → Refreshed / OK / Groggy / Wrecked. Log each morning.</div></div>
+    <div class="ddr"><div class="ddl">What you learn</div><div class="ddv">Over 30 days, Groggy/Wrecked patterns correlate with your Warrior Score dips without needing SpO2 measurement.</div></div>
+    <div class="ddr"><div class="ddl">Cost</div><div class="ddv">$0</div></div>
+  </div>
+  <div class="co cs"><span>💡</span><span><strong>Recommendation:</strong> Check Option 1 first (free, 5 minutes). If your watch doesn't support SpO2 and the unrefreshed/snore pattern continues after 30 days of protocol, the Wellue O2Ring is the highest-value $70 spend for your specific situation.</span></div>
+</div>
+</div>
+
+<!-- ═══ NOTION GUIDE ═══ -->
+<div class="page" id="page-notion">
+<div class="sec">
+  <div class="sh"><span class="si">📋</span><div><div class="st">Notion Implementation Guide</div><div class="ss">Distribute legend key across databases · Add Cycle Day (35-day max) · Fix aside nav blocks · Formula updates for female profile.</div></div></div>
+  <div class="nb">
+    <div class="nbt">· Distribute legend key — one callout per database ·</div>
+    <div class="nbs"><strong>HRV & Recovery page top:</strong> /callout → Gray → paste: 5 HRV Zone tiers (80+/65–79/50–64/30–49/0–29) + Tension Risk tiers + Training Readiness tiers + Welltory entry order reference. One compact block, bullet points inside.</div>
+    <div class="nbs"><strong>Blood Pressure page top:</strong> /callout → Gray → BP Status tiers + Pulse Pressure (30–50mmHg normal) + MAP (below 100 optimal) + cycle note: "Log Cycle Day with every reading — diastolic runs higher in luteal phase."</div>
+    <div class="nbs"><strong>Nutrition Engine page top:</strong> /callout → Gray → Protein Gap tiers (180g target) + Sodium Alert tiers (2300mg limit) + craving redirect guide (chocolate/salt/carb/sugar redirects). Most important one to have visible while logging.</div>
+    <div class="nbs"><strong>Sleep Analytics page top:</strong> /callout → Gray → Sleep Recovery tiers + Sleep Debt thresholds + SpO2 Flag tiers + cycle note about luteal/menstrual sleep disruption.</div>
+    <div class="nbs"><strong>Body Composition page top:</strong> /callout → Gray → Visceral Fat Status (female thresholds: &lt;13 healthy, 25+ very high) + Composition Priority + Recomp Signal reading guide + cycle note about luteal weight fluctuation.</div>
+    <div class="nbs"><strong>ZOZO page top:</strong> /callout → Gray → Waist circumference IR risk thresholds + WHR thresholds + the 4 progress signal scenarios (waist shrinking/stable/rising vs arms).</div>
+  </div>
+  <div class="nb" style="margin-top:8px">
+    <div class="nbt">· Formula updates for female profile — paste these replacements ·</div>
+    <div class="nbs"><strong>Cycle Day property:</strong> Add to Hub database as Number. Set max to 35. This is a manual entry — type today's day number each morning (Day 1 = first day of bleeding).</div>
+    <div class="nbs"><strong>Burnout Risk — update AMO50 threshold:</strong> Female AMO50 can run slightly higher in luteal phase. Consider raising Monitor threshold from AMO50 &gt;30 to AMO50 &gt;35 during Days 21–35 to avoid false yellows. Watch your pattern over 2 cycles first to see your actual luteal baseline.</div>
+    <div class="nbs"><strong>IR Load Score — add cycle modifier:</strong> In luteal phase (Days 21–35) the formula should reduce sensitivity slightly since some IR markers are hormonally elevated. See formula below.</div>
+    <div class="nbs"><strong>ZOZO WHR Status — corrected female thresholds:</strong> Female WHR healthy threshold is &lt;0.85 (not &lt;0.90 which is the male threshold). Your WHR of 0.87–0.89 is actually Borderline-Elevated for a woman, not "Healthy" as the old formula showed. Replace with formula below.</div>
+  </div>
+  <div class="code b" style="position:relative;margin-top:8px"><button class="cp" onclick="cp(this)">COPY</button>// IR Load Score — female cycle-adjusted version
+// Reduces sensitivity in luteal phase when some IR markers are hormonally elevated
+round(
+  (max(0, prop("Stress") - 20) / 80 * 100 * 0.30) +
+  (max(0, prop("AMO50 (Tension)") - 15) / 85 * 100 * 0.25) +
+  (max(0, 7.5 - prop("Sleep Hours")) / 7.5 * 100 * 0.30) +
+  (if(prop("HRV") < 60, 100, if(prop("HRV") < 80, 40, 0)) * 0.15) -
+  if(prop("Cycle Day") >= 21 and prop("Cycle Day") <= 35, 8, 0)
+)</div>
+  <div class="code b" style="position:relative;margin-top:8px"><button class="cp" onclick="cp(this)">COPY</button>// ZOZO WHR Status — corrected female thresholds (replace existing formula)
+// Note: property name has trailing space "Waist-to-Hip Ratio " — include it
+if(prop("Waist-to-Hip Ratio ") = 0, "— Enter measurements",
+  if(prop("Waist-to-Hip Ratio ") > 1.0, "🔴 High IR risk — waist larger than hips",
+    if(prop("Waist-to-Hip Ratio ") > 0.90, "🟠 Elevated — female healthy threshold is 0.85",
+      if(prop("Waist-to-Hip Ratio ") > 0.85, "🟡 Borderline — approaching healthy female range",
+        "✅ Healthy female ratio (below 0.85)"))))</div>
+  <div class="nb" style="margin-top:8px">
+    <div class="nbt">· Fix aside blocks as stable nav links ·</div>
+    <div class="nbs"><strong>Aside 1 (keep):</strong> ⚔️ WARRIOR OS · Daily Command Center — anchor, leave it.</div>
+    <div class="nbs"><strong>Aside 2:</strong> Click inside → type 📊 Bio Log → then @ → search Warrior Master Hub Database → select. Stable inline database link.</div>
+    <div class="nbs"><strong>Aside 3:</strong> 🧠 HRV Entry → @ → HRV And Recovery Database</div>
+    <div class="nbs"><strong>Aside 4:</strong> 🔥 Nutrition → @ → Nutrition Engine Database</div>
+    <div class="nbs"><strong>Aside 5:</strong> ❤️ BP → @ → Blood Pressure (add: "log Cycle Day too")</div>
+    <div class="nbs"><strong>Aside 6:</strong> 🌙 Sleep → @ → Sleep Analytics</div>
+    <div class="nbs"><strong>Result:</strong> 6 fixed-position nav links that never move with sidebar changes. One tap opens the database for that morning's entry.</div>
+  </div>
+  <div class="nb" style="margin-top:8px">
+    <div class="nbt">· GitHub Pages hosting — get the calculator into Notion ·</div>
+    <div class="nbs"><strong>1.</strong> Go to github.com → Sign up (free) → + icon → New repository → name it "warrior-os" → Public → Add README → Create.</div>
+    <div class="nbs"><strong>2.</strong> Click Add file → Upload files → drag this HTML file (download it as index.html) → Commit changes.</div>
+    <div class="nbs"><strong>3.</strong> Settings → Pages (left sidebar) → Source: main branch / root → Save.</div>
+    <div class="nbs"><strong>4.</strong> Wait 3 min → your URL appears: https://yourusername.github.io/warrior-os/</div>
+    <div class="nbs"><strong>5.</strong> In Notion on your hub page: /embed → paste the URL → resize to fill width. The full calculator with all tabs and cycle day runs inside Notion permanently.</div>
+  </div>
+</div>
+</div>
+
+<script>
+function sp(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');el.classList.add('active');}
+
+function gp(d){
+  if(d<=6) return {name:'Menstrual',col:'#E24B4A',adj:-6,bg:'rgba(226,75,74,.12)',bdr:'rgba(226,75,74,.3)',cr:'HIGH — carbs, chocolate, salt. Redirect: dark chocolate + protein shake, sweet potato, electrolyte drink.',en:'Fatigue is physiological days 1–3. Iron-rich foods. Rest is appropriate.',sl:'Cramps may fragment sleep. Heating pad. Lower scores expected.'};
+  if(d<=13) return {name:'Follicular',col:'#378ADD',adj:0,bg:'rgba(55,138,221,.12)',bdr:'rgba(55,138,221,.3)',cr:'Lowest this phase — easiest time for protein + sodium compliance.',en:'Rising energy. Best window for new patterns, new content, complex projects.',sl:'Sleep quality improving. Capitalize on this.'};
+  if(d<=20) return {name:'Ovulatory',col:'#1D9E75',adj:3,bg:'rgba(29,158,117,.12)',bdr:'rgba(29,158,117,.3)',cr:'Moderate. Appetite may suppress — set meal reminders. Risk is undereating protein.',en:'Peak physical and cognitive energy. Push hard. Use this window.',sl:'Best quality. Good HRV scores expected.'};
+  return {name:'Luteal',col:'#D4699A',adj:-12,bg:'rgba(212,105,154,.12)',bdr:'rgba(212,105,154,.3)',cr:'HIGH and rising. Carbs, sugar, salt. Serotonin drop. Redirect: sweet potato, rice, fruit+protein, dark chocolate.',en:'Declining. ADHD symptoms amplify. Brain fog is real. Trust the score.',sl:'Progesterone disrupts deep sleep. Lower scores normal — not failure.'};
+}
+
+const Z={
+  1:{col:'#1D9E75',bdr:'rgba(29,158,117,.3)',bg:'rgba(29,158,117,.08)',title:'⚡ ZONE 1 — SYSTEM OPTIMAL',body:'<strong>Work blocks: 90 min max · Set timer BEFORE opening any task</strong><br>Complex work, new patterns, full meal prep, hard decisions all available.',work:'Complex problem solving · New crochet patterns · Full meal prep (plan+cook+store) · Hard conversations',house:'Deep clean oven · Full air fryer disassembly · Bleach sink + area · Microwave inside+out · Reorganize space',creative:'New crochet techniques/colorwork · Complex multi-color diamond painting · New Asian drama (full subtitle engagement) · Live/PPV pro wrestling',rest:'N/A — use this zone fully. Set 90-min timers to protect from hyperfocus collapse.',avoid:'Passive scrolling · Spending Zone 1 energy on low-value tasks · Skipping breaks because you feel invincible'},
+  2:{col:'#378ADD',bdr:'rgba(55,138,221,.3)',bg:'rgba(55,138,221,.08)',title:'✅ ZONE 2 — PERFORM',body:'<strong>Work blocks: 90 min max · Timers NOT optional</strong><br>Familiar work, full household tasks, moderate training.',work:'Familiar systems · Communication · Admin · Reviewing existing material',house:'Full laundry (load→transfer→fold→away as ONE task) · Bleach sink · Microwave clean · Air fryer wipe-down · Dishes · Wipe counters',creative:'Familiar crochet (known patterns, no new techniques) · Large diamond painting sections (known color) · Current Asian drama series · Weekly pro wrestling',rest:'N/A',avoid:'New complex patterns · New recipes · Irreversible decisions · Trusting Zone 2 energy as Zone 1'},
+  3:{col:'#EF9F27',bdr:'rgba(239,159,39,.3)',bg:'rgba(239,159,39,.08)',title:'🟡 ZONE 3 — MANAGE OUTPUT',body:'<strong>Work blocks: 60 min MAX hard stop</strong><br>Checklist tasks, comfort anchors, one household task.',work:'Checklist tasks only · Simple templated emails · Nothing requiring original thought',house:'ONE task not both: start laundry OR bleach sink · Unload dishwasher · Refill water bottles',creative:'Simple repetitive crochet (no counting — sensory anchor) · Diamond painting one pre-sorted color, small section · Rewatched Asian drama · Pro wrestling background',rest:'Leave room after every 60-min block',avoid:'New patterns · New diamond tray sorting · New recipes · New shows · Reorganizing · Decisions that matter'},
+  4:{col:'#E07830',bdr:'rgba(224,120,48,.3)',bg:'rgba(224,120,48,.08)',title:'🟠 ZONE 4 — PROTECT RESOURCES',body:'<strong>Work blocks: 45 min MAX · Eat before any task</strong><br>One micro-task, comfort rewatches, simple crochet.',work:'One pre-planned checklist item only',house:'One micro-task under 5 min: bleach sink OR wipe one surface OR transfer laundry',creative:'Crochet if soothing (stop if tracking required — sensory regulation is the goal) · Diamond painting if pre-set up, one color · Rewatched comfort drama · Pro wrestling replays',rest:'25 min on, 25 min off',avoid:'Meal prep · Standing tasks · Cascading household projects · New content · Decisions'},
+  5:{col:'#E24B4A',bdr:'rgba(226,75,74,.3)',bg:'rgba(226,75,74,.08)',title:'🔴 ZONE 5 — RECOVERY PROTOCOL',body:'<strong>Rest only · Comfort anchors · You do not have to earn this</strong>',work:'Nothing — or one 2-min task if ignoring it causes more distress',house:'Nothing. Or literally 2 minutes. Do not start anything.',creative:'Weighted blanket · Simple crochet if hands need occupying (no tracking) · Rewatched drama/wrestling (predictability = regulation, no new storylines)',rest:'Horizontal, heated, comfortable',avoid:'Everything that feels urgent — Zone 5 urgency is ADHD-PI false alarm. Tomorrow is always the answer.'}
+};
+
+function gc(v){return v>=85?'#1D9E75':v>=70?'#378ADD':v>=55?'#EF9F27':v>=40?'#E07830':'#E24B4A';}
+
+function calc(){
+  const hrv=parseFloat(document.getElementById('i-hrv').value)||0;
+  const en=parseFloat(document.getElementById('i-energy').value)||0;
+  const fo=parseFloat(document.getElementById('i-focus').value)||0;
+  const am=parseFloat(document.getElementById('i-amo').value)||0;
+  const st=parseFloat(document.getElementById('i-stress').value)||0;
+  const sl=parseFloat(document.getElementById('i-sleep').value)||0;
+  const cy=parseInt(document.getElementById('i-cycle').value)||14;
+
+  const ph=gp(Math.min(cy,35));
+  const ss=Math.min(sl/7.5*100,100);
+  const out=Math.round(hrv*0.30+en*0.35+fo*0.20+ss*0.15);
+  const cog=Math.round((100-am)*0.5+fo*0.5);
+  const bok=hrv>=70&&am<=30, bmon=hrv>=50;
+  const bn=bok?100:bmon?65:30;
+  const bw=Math.round(out*0.50+cog*0.30+bn*0.20);
+  const war=Math.max(0,bw+ph.adj);
+  const ir=Math.round(Math.max(0,(st-20)/80*100*0.30)+Math.max(0,(am-15)/85*100*0.25)+Math.max(0,(7.5-sl)/7.5*100*0.30)+(hrv<60?100:hrv<80?40:0)*0.15-((cy>=21&&cy<=35)?8:0));
+  const sd=sl>=7.5?`✅ ${sl}h adequate`:sl>=6?`🟡 Need +${Math.round((7.5-sl)*60)}min`:`🔴 Need +${Math.round((7.5-sl)*60)}min`;
+
+  const sv=(vi,fi,si,val,lbl,col)=>{const v=document.getElementById(vi);v.textContent=val;v.style.color=col;if(fi){const f=document.getElementById(fi);f.style.width=Math.min(val,100)+'%';f.style.background=col;}if(si){const s=document.getElementById(si);s.textContent=lbl;s.style.color=col;}};
+
+  sv('r-out','rb-out','rs-out',out,out>=85?'Full Tank':out>=70?'Strong':out>=55?'Reduced':out>=40?'Low':'Depleted',gc(out));
+  sv('r-cog','rb-cog','rs-cog',cog,cog>=75?'Full Access':cog>=65?'Routine':cog>=55?'Checklist':cog>=45?'Impaired':'Rest',gc(cog));
+  const ws=war>=85?'⚡ Zone 1':war>=70?'✅ Zone 2':war>=55?'🟡 Zone 3':war>=40?'🟠 Zone 4':'🔴 Zone 5';
+  sv('r-war','rb-war','rs-war',war,ws+(ph.adj!==0?` (${ph.adj>0?'+':''}${ph.adj} cycle)`:''),gc(war));
+  const bc=bok?'#1D9E75':bmon?'#EF9F27':'#E24B4A';
+  document.getElementById('r-burn').textContent=bok?'🟢 Optimal':bmon?'🟡 Monitor':'🔴 High Risk';
+  document.getElementById('r-burn').style.color=bc;
+  document.getElementById('rs-burn').textContent=bok?'HRV strong + tension low':bmon?'Watch trend':'Nervous system stressed';
+  document.getElementById('rs-burn').style.color=bc;
+  const ic=ir>=60?'#E24B4A':ir>=35?'#E07830':ir>=15?'#EF9F27':'#1D9E75';
+  document.getElementById('r-ir').textContent=ir;document.getElementById('r-ir').style.color=ic;
+  document.getElementById('rs-ir').textContent=ir>=60?'🔴 High IR Risk':ir>=35?'🟠 Elevated':ir>=15?'🟡 Moderate':'🟢 Low';
+  document.getElementById('rs-ir').style.color=ic;
+  document.getElementById('r-slp').textContent=sd;
+  document.getElementById('r-slp').style.color=sl>=7.5?'#1D9E75':sl>=6?'#EF9F27':'#E24B4A';
+  // ADHD + Final Score
+  const adhd=parseInt(document.getElementById('i-adhd').value)||0;
+  const finalScore=Math.max(0,war-adhd);
+  const adhdLbl=adhd===0?'Low — no modifier':adhd===5?'Med −5pts':adhd===12?'High −12pts':'Crisis −20pts';
+  sv('r-cycadj','rb-cycadj','rs-cycadj',war,ph.adj!==0?'Cycle '+(ph.adj>0?'+':'')+ph.adj+'pts':'No cycle adj',gc(war));
+  sv('r-final','rb-final','rs-final',finalScore,adhdLbl,'#7F77DD');
+
+  const zn=finalScore>=85?1:finalScore>=70?2:finalScore>=55?3:finalScore>=40?4:5;
+  const z=Z[zn];
+  const zb=document.getElementById('zb');
+  zb.style.display='block';zb.style.background=z.bg;zb.style.borderColor=z.bdr;
+  document.getElementById('zbt').textContent=z.title+(adhd>0?' · ADHD −'+adhd+'pts':'');
+  // C1: Phase countdown
+  const cd2=parseInt(document.getElementById('i-cycle').value)||0;
+  if(cd2>0){
+    const daysLeft=cd2<=6?6-cd2:cd2<=13?13-cd2:cd2<=20?20-cd2:35-cd2;
+    const nextPhase=cd2<=6?'🔵 Follicular starts':cd2<=13?'✅ Ovulatory starts':cd2<=20?'💜 Luteal starts':'🔴 New cycle starts';
+    const countdown=daysLeft===0?nextPhase+' tomorrow':nextPhase+' in '+daysLeft+' day'+(daysLeft!==1?'s':'');
+    const ctel=document.getElementById('phase-countdown');
+    if(ctel){ctel.textContent=countdown;ctel.style.display='block';}
+  }document.getElementById('zbt').style.color=z.col;
+  document.getElementById('zbb').innerHTML=z.body;
+
+  document.getElementById('lw').textContent='💼 Work & focus';document.getElementById('aw').textContent=z.work;
+  document.getElementById('lh').textContent='🏠 Household';document.getElementById('ah').textContent=z.house;
+  document.getElementById('lc').textContent='🎨 Creative & entertainment';document.getElementById('ac').textContent=z.creative;
+  document.getElementById('lr').textContent='⏱ Rest protocol';document.getElementById('ar').textContent=z.rest;
+  document.getElementById('aav').textContent=z.avoid;
+  document.getElementById('ao').style.display='block';
+
+  const cb=document.getElementById('cycb');
+  cb.style.display='block';cb.style.background=ph.bg;cb.style.borderColor=ph.bdr;
+  document.getElementById('cyct').textContent=`📅 ${ph.name} Phase · Day ${cy} · Score adjusted ${ph.adj>0?'+':''}${ph.adj}pts`;
+  document.getElementById('cyct').style.color=ph.col;
+  document.getElementById('cycd').innerHTML=`<strong>Energy:</strong> ${ph.en}<br><strong>Cravings:</strong> ${ph.cr}<br><strong>Sleep:</strong> ${ph.sl}`;
+
+  const badge=document.getElementById('cpbadge');
+  badge.style.display='inline-block';badge.style.background=ph.bg;badge.style.color=ph.col;
+  badge.style.border=`1px solid ${ph.bdr}`;badge.textContent=ph.name;
+
+  document.getElementById('results').style.display='block';
+
+  // Update global state so external features (checklist, countdown, sync) can read values
+  _currentZone       = zn;
+  _currentFinalScore = finalScore;
+  _currentCogCap     = cog;
+  _currentPhase      = ph.name;
+  _currentAdhd       = adhd;
+  _currentIR         = ir;
+}
+
+function cp(btn){
+  const t=btn.parentElement.textContent.replace('COPY','').trim();
+  navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓';btn.style.color='var(--teal)';btn.style.borderColor='var(--teal)';setTimeout(()=>{btn.textContent='COPY';btn.style.color='';btn.style.borderColor='';},2000);});
+}
+
+// ═══ WARRIOR OS — SESSION HISTORY ENGINE ═══════════════════════
+
+const DB_KEY   = 'warrior_os_sessions';
+
+// ── Global state — updated by calc() so all features can read current values ──
+let _currentZone      = 0;
+let _currentFinalScore = 0;
+let _currentCogCap    = 0;
+let _currentPhase     = '';
+let _currentAdhd      = 0;
+let _currentIR        = 0;
+const WEEK_KEY = 'warrior_os_week_offset'; // how many weeks back we're viewing
+let   weekOffset = 0; // 0 = current week
+let   selectedDate = null;
+
+// ── Storage helpers ────────────────────────────────────────────
+function loadSessions(){
+  try{ return JSON.parse(localStorage.getItem(DB_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+function saveSessions(db){
+  try{ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+  catch(e){ alert('Storage full — consider clearing old entries.'); }
+}
+
+// ── Date helpers ───────────────────────────────────────────────
+function todayKey(){
+  return new Date().toISOString().split('T')[0];
+}
+function getDateKey(offsetDays){
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().split('T')[0];
+}
+function parseKey(k){ return new Date(k + 'T12:00:00'); }
+function fmtShort(k){
+  const d = parseKey(k);
+  return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+}
+function fmtFull(k){
+  const d = parseKey(k);
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+function fmtMMDD(k){
+  const d = parseKey(k);
+  return (d.getMonth()+1)+'/'+d.getDate();
+}
+function getWeekRange(offset){
+  // Week = Mon–Sun. offset=0 is current week.
+  const now = new Date();
+  const dow = now.getDay(); // 0=Sun
+  const monDelta = dow === 0 ? -6 : 1 - dow;
+  const mon = new Date(now);
+  mon.setDate(now.getDate() + monDelta + offset * 7);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  const keys = [];
+  for(let i=0; i<7; i++){
+    const d = new Date(mon);
+    d.setDate(mon.getDate() + i);
+    keys.push(d.toISOString().split('T')[0]);
+  }
+  return { mon, sun, keys };
+}
+function fmtWeekLabel(mon, sun){
+  const mo = m => m.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return mo(mon) + ' – ' + mo(sun);
+}
+
+// ── Streak calc (consecutive Zone 2+ days, ending at most recent) ─
+function calcStreak(db){
+  const keys = Object.keys(db).sort().reverse();
+  let streak = 0;
+  const today = todayKey();
+  for(const k of keys){
+    if(k > today) continue; // skip future-dated entries
+    if(db[k].finalScore >= 70) streak++;
+    else break;
+  }
+  return streak;
+}
+
+// ── Week grade ─────────────────────────────────────────────────
+function weekGrade(sessions){
+  if(!sessions.length) return null;
+  const avg = sessions.reduce((s,e)=>s+e.finalScore,0)/sessions.length;
+  const avgSleep = sessions.reduce((s,e)=>s+e.inputs.sleep,0)/sessions.length;
+  if(avg>=80 && avgSleep>=7) return {label:'A',col:'#1D9E75'};
+  if(avg>=70 && avgSleep>=6.5) return {label:'B',col:'#378ADD'};
+  if(avg>=55) return {label:'C',col:'#EF9F27'};
+  if(avg>=40) return {label:'D',col:'#E07830'};
+  return {label:'F',col:'#E24B4A'};
+}
+
+// ── Score color ────────────────────────────────────────────────
+function sc(s){ return s>=85?'#1D9E75':s>=70?'#378ADD':s>=55?'#EF9F27':s>=40?'#E07830':'#E24B4A'; }
+function zl(s){ return s>=85?'⚡ Zone 1':s>=70?'✅ Zone 2':s>=55?'🟡 Zone 3':s>=40?'🟠 Zone 4':'🔴 Zone 5'; }
+function pe(p){ return p==='Menstrual'?'🔴':p==='Follicular'?'🔵':p==='Ovulatory'?'✅':p==='Luteal'?'💜':''; }
+
+// ── Save current calc result ───────────────────────────────────
+function saveEntry(entry){
+  const db = loadSessions();
+  db[entry.date] = entry;
+  saveSessions(db);
+}
+
+// ── Render THIS WEEK strip (current week only) ─────────────────
+function renderWeekStrip(){
+  const db = loadSessions();
+  const {keys} = getWeekRange(0);
+  const today = todayKey();
+  const streak = calcStreak(db);
+  const maxH = 42;
+
+  // Streak badge
+  const badge = document.getElementById('streak-badge');
+  if(!badge) return;
+  if(streak >= 5){
+    badge.textContent = '🔥 '+streak+'-day streak';
+    badge.style.cssText='background:rgba(239,159,39,.15);color:var(--amber);border:1px solid rgba(239,159,39,.3);';
+  } else if(streak >= 2){
+    badge.textContent = streak+'-day streak';
+    badge.style.cssText='background:rgba(29,158,117,.15);color:var(--teal);border:1px solid rgba(29,158,117,.3);';
+  } else if(streak === 1){
+    badge.textContent = '1-day streak';
+    badge.style.cssText='background:rgba(29,158,117,.1);color:var(--teal);border:1px solid rgba(29,158,117,.2);';
+  } else {
+    const entries = Object.keys(db).filter(k=>k<=today);
+    badge.textContent = entries.length ? 'No streak' : 'No data yet';
+    badge.style.cssText='background:rgba(123,157,196,.08);color:var(--text3);border:1px solid var(--border);';
+  }
+
+  const el = document.getElementById('spark-week');
+  if(!el) return;
+  el.innerHTML = keys.map(k=>{
+    const e = db[k];
+    const isToday = k === today;
+    const dayLabel = isToday ? 'Today' : fmtShort(k);
+    if(!e){
+      return `<div class="sbar-wrap" onclick="jumpToDate('${k}')">
+        <div class="sval" style="color:var(--text3)">—</div>
+        <div class="spark-bars" style="width:100%">
+          <div class="sbar" style="height:3px;background:var(--border2);width:100%"></div>
+          <div class="irbar" style="height:2px;background:var(--border2)"></div>
+        </div>
+        <div class="sday" style="${isToday?'color:var(--text);font-weight:700':''}">${dayLabel}</div>
+      </div>`;
+    }
+    const fs = e.finalScore;
+    const ir = e.irLoad || 0;
+    const col = sc(fs);
+    const irCol = ir >= 65 ? '#E24B4A' : ir >= 35 ? '#E07830' : '#1D9E75';
+    const fh = Math.max(4, Math.round(fs/100*maxH));
+    const ih = Math.max(2, Math.round(ir/100*(maxH*0.5)));
+    const glow = isToday ? `;box-shadow:0 0 8px ${col}55` : '';
+    return `<div class="sbar-wrap" onclick="jumpToDate('${k}')">
+      <div class="sval" style="color:${col}">${fs}<span style="font-size:7px;color:${irCol};margin-left:2px">${ir}</span></div>
+      <div class="spark-bars" style="width:100%">
+        <div class="sbar" style="height:${fh}px;background:${col};width:100%;opacity:${isToday?1:.75}${glow}"></div>
+        <div class="irbar" style="height:${ih}px;background:${irCol};opacity:${isToday?.9:.55}"></div>
+      </div>
+      <div class="sday" style="${isToday?'color:var(--text);font-weight:700':''}">${dayLabel}</div>
+    </div>`;
+  }).join('');
+
+  // Last saved note
+  const note = document.getElementById('week-save-note');
+  if(note && db[today]){
+    const t = db[today].savedAt || '';
+    note.textContent = t ? 'Last saved: ' + t : '';
+  }
+}
+
+// ── Render NAV week (history browser) ─────────────────────────
+function renderNavWeek(){
+  const db = loadSessions();
+  const {mon, sun, keys} = getWeekRange(weekOffset);
+  const today = todayKey();
+  const maxH = 42;
+
+  // Week label + grade
+  const sessions = keys.map(k=>db[k]).filter(Boolean);
+  const grade = weekGrade(sessions);
+  const gradeHtml = grade
+    ? `<span class="week-grade" style="color:${grade.col};border-color:${grade.col};background:${grade.col}18">${grade.label}</span>`
+    : '';
+  document.getElementById('week-label').innerHTML = fmtWeekLabel(mon,sun) + ' ' + gradeHtml;
+
+  // Sparkline for nav week
+  const navSpark = document.getElementById('spark-nav');
+  navSpark.innerHTML = keys.map(k=>{
+    const e = db[k];
+    const isToday = k === today;
+    const dayLabel = isToday ? 'Today' : fmtShort(k);
+    if(!e){
+      return `<div class="sbar-wrap" onclick="selectDay('${k}')">
+        <div class="sval" style="color:var(--text3)">—</div>
+        <div class="sbar" style="height:3px;background:var(--border2)"></div>
+        <div class="sday" style="${isToday?'color:var(--text);font-weight:700':''}">${dayLabel}</div>
+      </div>`;
+    }
+    const h = Math.max(4, Math.round(e.finalScore/100*maxH));
+    const col = sc(e.finalScore);
+    const isSel = k === selectedDate;
+    return `<div class="sbar-wrap" onclick="selectDay('${k}')">
+      <div class="sval" style="color:${col}">${e.finalScore}</div>
+      <div class="sbar" style="height:${h}px;background:${col};opacity:${isSel?1:.65};${isSel?'box-shadow:0 0 8px '+col+'66':''}"></div>
+      <div class="sday" style="${isToday?'color:var(--text);font-weight:700':isSel?'color:'+col:''}">${dayLabel}</div>
+    </div>`;
+  }).join('');
+
+  // Day rows list
+  const listEl = document.getElementById('nav-day-list');
+  const weekEntries = keys.filter(k=>db[k]).map(k=>({k,e:db[k]})).reverse();
+  if(!weekEntries.length){
+    listEl.innerHTML = '<div class="hempty">No entries this week</div>';
+  } else {
+    listEl.innerHTML = weekEntries.map(({k,e})=>{
+      const isSel = k === selectedDate;
+      return `<div class="hday-row ${isSel?'selected':''}" onclick="selectDay('${k}')">
+        <span class="hd-date">${fmtMMDD(k)} ${fmtShort(k)}</span>
+        <span class="hd-score" style="color:${sc(e.finalScore)}">${e.finalScore}</span>
+        <span class="hd-zone">${zl(e.finalScore)}</span>
+        <span class="hd-phase">${pe(e.phase)} ${e.phase||''}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Avg for this week
+  const avg = sessions.length
+    ? Math.round(sessions.reduce((s,e)=>s+e.finalScore,0)/sessions.length)
+    : null;
+  const allKeys = Object.keys(db).filter(k=>k<=today);
+  const allAvg = allKeys.length
+    ? Math.round(allKeys.reduce((s,k)=>s+db[k].finalScore,0)/allKeys.length)
+    : null;
+  document.getElementById('hist-avg').innerHTML = [
+    avg!==null ? `Week avg: <strong style="color:${sc(avg)}">${avg}</strong>` : '',
+    allAvg!==null ? `All-time avg: <strong style="color:${sc(allAvg)}">${allAvg}</strong>` : ''
+  ].filter(Boolean).join(' · ');
+
+  // If a day is selected, render its detail card
+  if(selectedDate && db[selectedDate]){
+    renderEntryDetail(selectedDate, db[selectedDate]);
+  } else {
+    document.getElementById('entry-detail').style.display = 'none';
+  }
+}
+
+// ── Entry detail card ──────────────────────────────────────────
+function renderEntryDetail(k, e){
+  const el = document.getElementById('entry-detail');
+  el.style.display = 'block';
+  const col = sc(e.finalScore);
+  const adhdLbl = e.inputs.adhd===0?'Low':e.inputs.adhd===5?'Medium':e.inputs.adhd===12?'High':'Crisis';
+
+  const inputItems = [
+    {l:'HRV Score',    v:e.inputs.hrv,    s:'Welltory'},
+    {l:'Energy',       v:e.inputs.energy, s:'Welltory'},
+    {l:'Focus',        v:e.inputs.focus,  s:'Welltory'},
+    {l:'AMO50',        v:e.inputs.amo,    s:'Tension'},
+    {l:'Stress',       v:e.inputs.stress, s:'Welltory'},
+    {l:'Sleep',        v:e.inputs.sleep+'h', s:'Hours'},
+    {l:'Cycle Day',    v:e.inputs.cycleDay, s:e.phase||''},
+    {l:'ADHD',         v:adhdLbl,         s:e.inputs.adhd>0?'−'+e.inputs.adhd+'pts':'No modifier'},
+  ];
+  const irCol = (e.irLoad||0) >= 65 ? '#E24B4A' : (e.irLoad||0) >= 35 ? '#E07830' : '#1D9E75';
+  const irStatus = (e.irLoad||0) >= 65 ? 'High load' : (e.irLoad||0) >= 35 ? 'Moderate' : 'Low load ✅';
+  const scoreItems = [
+    {l:'Output Cap',   v:e.outputCap,   s:'',            col:sc(e.outputCap)},
+    {l:'Cog Capacity', v:e.cogCap,      s:'',            col:sc(e.cogCap)},
+    {l:'Burnout Risk', v:e.burnout,     s:'',            col:e.burnout==='🟢 Optimal'?'#1D9E75':e.burnout==='🟡 Monitor'?'#EF9F27':'#E24B4A'},
+    {l:'IR Load Score',v:e.irLoad||0,   s:irStatus,      col:irCol},
+    {l:'Warrior Score',v:e.warriorScore,s:zl(e.warriorScore), col:sc(e.warriorScore)},
+    {l:'Cycle Adj',    v:e.cycleAdj,    s:e.cycleAdjNote||'', col:sc(e.cycleAdj)},
+    {l:'Final Score',  v:e.finalScore,  s:zl(e.finalScore),   col:'#7F77DD'},
+    {l:'Sleep Debt',   v:e.sleepDebt,   s:'',            col:e.inputs.sleep>=7.5?'#1D9E75':e.inputs.sleep>=6?'#EF9F27':'#E24B4A'},
+  ];
+
+  el.innerHTML = `<div class="ecard">
+    <div class="ecard-title">
+      <span>${fmtFull(k)} · ${pe(e.phase)} ${e.phase||''} Day ${e.inputs.cycleDay}</span>
+      <span class="ecard-close" onclick="closeDetail()">✕</span>
+    </div>
+    <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:6px;">Inputs</div>
+    <div class="egrid">
+      ${inputItems.map(i=>`<div class="eitem"><div class="ei-label">${i.l}</div><div class="ei-val">${i.v}</div><div class="ei-sub">${i.s}</div></div>`).join('')}
+    </div>
+    <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin:8px 0 6px;">Scores</div>
+    <div class="egrid">
+      ${scoreItems.map(i=>`<div class="eitem"><div class="ei-label">${i.l}</div><div class="ei-val" style="color:${i.col}">${i.v}</div><div class="ei-sub">${i.s}</div></div>`).join('')}
+    </div>
+    <button class="eload-btn" onclick="loadEntry('${k}')">↩ Load these inputs into calculator</button>
+  </div>`;
+}
+
+// ── Load a past entry back into the calculator ─────────────────
+function loadEntry(k){
+  const db = loadSessions();
+  const e = db[k];
+  if(!e) return;
+  document.getElementById('i-hrv').value    = e.inputs.hrv;
+  document.getElementById('i-energy').value = e.inputs.energy;
+  document.getElementById('i-focus').value  = e.inputs.focus;
+  document.getElementById('i-amo').value    = e.inputs.amo;
+  document.getElementById('i-stress').value = e.inputs.stress;
+  document.getElementById('i-sleep').value  = e.inputs.sleep;
+  document.getElementById('i-cycle').value  = e.inputs.cycleDay;
+  document.getElementById('i-adhd').value   = e.inputs.adhd;
+  document.getElementById('i-date').value   = k;
+  // Scroll to top of calculator
+  document.querySelector('.page.active').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Navigation ─────────────────────────────────────────────────
+function shiftWeek(dir){
+  weekOffset += dir;
+  if(weekOffset > 0) weekOffset = 0; // can't go to future weeks
+  selectedDate = null;
+  document.getElementById('entry-detail').style.display='none';
+  renderNavWeek();
+}
+
+function selectDay(k){
+  const db = loadSessions();
+  if(!db[k]){ closeDetail(); selectedDate=null; renderNavWeek(); return; }
+  selectedDate = k;
+  renderNavWeek();
+  // Scroll entry detail into view
+  setTimeout(()=>{
+    const el = document.getElementById('entry-detail');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }, 50);
+}
+
+function jumpToDate(k){
+  // Open history panel, navigate to that week, select that day
+  const hbody = document.getElementById('hist-body');
+  const hchev = document.getElementById('hist-chev');
+  if(!hbody.classList.contains('open')){
+    hbody.classList.add('open');
+    hchev.classList.add('open');
+  }
+  // Figure out which week offset this date is in
+  const today = new Date();
+  const target = new Date(k+'T12:00:00');
+  const diffDays = Math.round((today - target) / 86400000);
+  weekOffset = -Math.floor(diffDays / 7);
+  if(weekOffset > 0) weekOffset = 0;
+  selectedDate = k;
+  renderNavWeek();
+  setTimeout(()=>{
+    document.getElementById('hist-body').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }, 50);
+}
+
+function closeDetail(){
+  selectedDate = null;
+  document.getElementById('entry-detail').style.display='none';
+  renderNavWeek();
+}
+
+function togglePanel(bodyId, chevId){
+  const body = document.getElementById(bodyId);
+  const chev = document.getElementById(chevId);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+}
+
+function clearHistory(){
+  if(confirm('Clear ALL session history? This cannot be undone.'))
+  { localStorage.removeItem(DB_KEY); weekOffset=0; selectedDate=null; renderWeekStrip(); renderNavWeek(); }
+}
+
+// ── Sunday 4pm streak reset check ─────────────────────────────
+function checkWeeklyReset(){
+  const now = new Date();
+  const isSunday = now.getDay() === 0;
+  const isPM4Plus = now.getHours() >= 16;
+  if(!isSunday || !isPM4Plus) return;
+  const resetKey = 'warrior_streak_reset_' + now.toISOString().split('T')[0];
+  if(localStorage.getItem(resetKey)) return; // already ran today
+  localStorage.setItem(resetKey, '1');
+  // Archive current streak count visually — just log it, don't delete history
+  const db = loadSessions();
+  const streak = calcStreak(db);
+  if(streak > 0){
+    // Save a streak record for this week
+    const weekRecords = JSON.parse(localStorage.getItem('warrior_streak_records')||'[]');
+    weekRecords.push({ date: now.toISOString().split('T')[0], streak });
+    localStorage.setItem('warrior_streak_records', JSON.stringify(weekRecords.slice(-52)));
+  }
+}
+
+// ── Patch calc() to save full session ─────────────────────────
+const _origCalc = window.calc; // set after calc() is defined
+function patchCalc(){
+  const original = calc;
+  calc = function(){
+    original();
+
+    // Read inputs from DOM
+    const hrv       = parseFloat(document.getElementById('i-hrv').value)||0;
+    const energy    = parseFloat(document.getElementById('i-energy').value)||0;
+    const focus     = parseFloat(document.getElementById('i-focus').value)||0;
+    const amo       = parseFloat(document.getElementById('i-amo').value)||0;
+    const stress    = parseFloat(document.getElementById('i-stress').value)||0;
+    const sleep     = parseFloat(document.getElementById('i-sleep').value)||0;
+    const cycleDay  = parseInt(document.getElementById('i-cycle').value)||0;
+    const adhd      = parseInt(document.getElementById('i-adhd').value)||0;
+
+    // Read the date field — use today if empty
+    const dateInput = document.getElementById('i-date').value;
+    const entryDate = dateInput || todayKey();
+
+    // Use globals set by calc() — avoids DOM scraping race conditions
+    const final   = _currentFinalScore;
+    const cogCap  = _currentCogCap;
+    const irLoad  = _currentIR;
+    const ph      = gp(Math.min(cycleDay,35));
+
+    // Still read these from DOM for burnout/sleep debt text
+    const outCap  = parseInt(document.getElementById('r-out').textContent)||0;
+    const warScore= parseInt(document.getElementById('r-war').textContent)||0;
+    const burnout = document.getElementById('r-burn').textContent||'';
+    const sleepD  = document.getElementById('r-slp').textContent||'';
+    const cycAdj  = parseInt(document.getElementById('r-cycadj').textContent)||0;
+    const cycNote = document.getElementById('rs-cycadj').textContent||'';
+
+    const now = new Date();
+    const savedAt = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+
+    const entry = {
+      date: entryDate,
+      savedAt,
+      phase: ph.name,
+      finalScore: final,
+      warriorScore: warScore,
+      cycleAdj: cycAdj,
+      cycleAdjNote: cycNote,
+      outputCap: outCap,
+      cogCap,
+      burnout,
+      irLoad,
+      sleepDebt: sleepD,
+      inputs: { hrv, energy, focus, amo, stress, sleep, cycleDay, adhd }
+    };
+
+    saveEntry(entry);
+    renderWeekStrip();
+    renderNavWeek();
+    // C2: render checklist using globals set by calc()
+    renderChecklist(_currentZone, _currentPhase, _currentCogCap, _currentAdhd);
+  };
+}
+
+// ── Set today's date as default in date input ─────────────────
+function initDateInput(){
+  const el = document.getElementById('i-date');
+  if(el && !el.value) el.value = todayKey();
+}
+
+// ── Init ──────────────────────────────────────────────────────
+window.addEventListener('load', ()=>{
+  initDateInput();
+  checkWeeklyReset();
+  patchCalc();
+  renderWeekStrip();
+  renderNavWeek();
+  // Auto-open week strip if data exists
+  const db = loadSessions();
+  if(Object.keys(db).length){
+    document.getElementById('week-body').classList.add('open');
+    document.getElementById('week-chev').classList.add('open');
+  }
+  setTimeout(calc, 80);
+});
+
+
+// ── Clear all input fields ─────────────────────────────────────
+function clearFields(){
+  // Force visual reset by setting attribute AND property, then firing input event
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.setAttribute('value', val);
+    el.value = val;
+    el.dispatchEvent(new Event('input', {bubbles:true}));
+    el.dispatchEvent(new Event('change', {bubbles:true}));
+  };
+  setVal('i-hrv',    75);
+  setVal('i-energy', 80);
+  setVal('i-focus',  70);
+  setVal('i-amo',    25);
+  setVal('i-stress', 35);
+  setVal('i-sleep',  7.5);
+  setVal('i-cycle',  14);
+  document.getElementById('i-adhd').value = 5;
+  document.getElementById('i-date').value = todayKey();
+  // Hide results panel
+  document.getElementById('results').style.display = 'none';
+  // Reset score cards
+  ['r-out','r-cog','r-war','r-burn','r-ir','r-slp','r-cycadj','r-final'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = '—';
+  });
+  ['rs-out','rs-cog','rs-war','rs-burn','rs-ir','rs-cycadj','rs-final'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = '';
+  });
+  ['rb-out','rb-cog','rb-war','rb-cycadj','rb-final'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.width = '0%';
+  });
+  // Reset zone banner + activities
+  const zbt = document.getElementById('zbt');
+  const zbb = document.getElementById('zbb');
+  if(zbt) zbt.textContent = '';
+  if(zbb) zbb.textContent = '';
+  // Reset cycle badge
+  const cpbadge = document.getElementById('cpbadge');
+  if(cpbadge) cpbadge.textContent = '';
+  // Reset global state
+  _currentZone = 0; _currentFinalScore = 0;
+  _currentCogCap = 0; _currentPhase = ''; _currentAdhd = 0; _currentIR = 0;
+  // Hide checklist
+  const cw = document.getElementById('checklist-wrap');
+  if(cw) cw.style.display = 'none';
+  checklistState = {};
+  // Scroll back to top of calculator
+  document.querySelector('.page.active').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ═══ NOTION SYNC ENGINE ════════════════════════════════════════
+
+const NKEY_STORE  = 'warrior_notion_key';
+const NDBID_STORE = 'warrior_notion_dbid';
+
+function saveNKey(){
+  const v = document.getElementById('n-apikey').value;
+  if(v) localStorage.setItem(NKEY_STORE, v);
+}
+function saveNDBID(){
+  const v = document.getElementById('n-dbid').value;
+  if(v) localStorage.setItem(NDBID_STORE, v);
+}
+
+function openSyncModal(){
+  const modal = document.getElementById('nsync-modal');
+  // Pre-fill saved values
+  const k = localStorage.getItem(NKEY_STORE)||'';
+  const d = localStorage.getItem(NDBID_STORE)||'';
+  document.getElementById('n-apikey').value = k;
+  document.getElementById('n-dbid').value = d;
+  // Default sync date to today
+  document.getElementById('n-syncdate').value = todayKey();
+  document.getElementById('nsync-status').style.display = 'none';
+  modal.style.display = 'flex';
+}
+
+function closeSyncModal(){
+  document.getElementById('nsync-modal').style.display = 'none';
+}
+
+function showSyncStatus(msg, ok){
+  const el = document.getElementById('nsync-status');
+  el.textContent = msg;
+  el.className = 'nsync-status ' + (ok ? 'nsync-ok' : 'nsync-err');
+  el.style.display = 'block';
+}
+
+async function doSync(){
+  const apiKey = document.getElementById('n-apikey').value.trim();
+  const dbId   = document.getElementById('n-dbid').value.trim().replace(/-/g,'');
+  const date   = document.getElementById('n-syncdate').value;
+
+  if(!apiKey){ showSyncStatus('⚠ Enter your Notion API key first', false); return; }
+  if(!dbId)  { showSyncStatus('⚠ Enter your Hub database ID first', false); return; }
+  if(!date)  { showSyncStatus('⚠ Select a date to sync', false); return; }
+
+  const db = loadSessions();
+  const entry = db[date];
+  if(!entry){ showSyncStatus('⚠ No saved entry for ' + fmtFull(date) + ' — calculate that day first', false); return; }
+
+  const btn = document.getElementById('nsync-go');
+  btn.disabled = true;
+  btn.textContent = 'Syncing…';
+  showSyncStatus('Connecting to Notion…', true);
+
+  // Build the zone label for Hub
+  const zoneLabel = entry.finalScore>=85 ? '⚡ Zone 1 — System Optimal'
+    : entry.finalScore>=70 ? '✅ Zone 2 — Optimal · Perform'
+    : entry.finalScore>=55 ? '🟡 Zone 3 — Moderate · Manage'
+    : entry.finalScore>=40 ? '🟠 Zone 4 — Caution · Protect'
+    : '🔴 Zone 5 — Recovery Protocol';
+
+  const adhdLabel = entry.inputs.adhd===0 ? 'Low'
+    : entry.inputs.adhd===5 ? 'Medium'
+    : entry.inputs.adhd===12 ? 'High' : 'Crisis';
+
+  // Build the Notion page properties
+  // Maps to Hub database fields based on your live schema
+  const properties = {
+    // Title / Name
+    "Name": {
+      "title": [{ "text": { "content": fmtFull(date) } }]
+    },
+    // Date
+    "Date": {
+      "date": { "start": date }
+    },
+    // Number inputs from Welltory
+    "HRV": {
+      "number": entry.inputs.hrv
+    },
+    "Energy": {
+      "number": entry.inputs.energy
+    },
+    "Focus": {
+      "number": entry.inputs.focus
+    },
+    "AMO50 (Tension)": {
+      "number": entry.inputs.amo
+    },
+    "Stress": {
+      "number": entry.inputs.stress
+    },
+    "Sleep Hours": {
+      "number": entry.inputs.sleep
+    },
+    "Cycle Day": {
+      "number": entry.inputs.cycleDay
+    },
+    // Calculated scores
+    "Output Capacity": {
+      "number": entry.outputCap
+    },
+    "Cognitive Capacity": {
+      "number": entry.cogCap
+    },
+    "Warrior Score": {
+      "number": entry.warriorScore
+    },
+    "IR Load Score": {
+      "number": entry.irLoad || 0
+    }
+  };
+
+  try {
+    // Check if an entry for this date already exists (search first)
+    showSyncStatus('Checking for existing entry…', true);
+
+    const NOTION_SEARCH = 'https://api.notion.com/v1/databases/' + dbId + '/query';
+    const searchRes = await fetch('https://corsproxy.io/?' + encodeURIComponent(NOTION_SEARCH), {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json',
+        'Notion-Version': '2022-06-28'
+      },
+      body: JSON.stringify({
+        filter: {
+          property: 'Date',
+          date: { equals: date }
+        }
+      })
+    });
+
+    if(!searchRes.ok){
+      const err = await searchRes.json();
+      throw new Error(err.message || 'Search failed — check API key and database ID');
+    }
+
+    const searchData = await searchRes.json();
+    const existingPage = searchData.results && searchData.results[0];
+
+    let result;
+    if(existingPage){
+      // Update existing entry
+      showSyncStatus('Updating existing Hub entry…', true);
+      const NOTION_UPDATE = 'https://api.notion.com/v1/pages/' + existingPage.id;
+      result = await fetch('https://corsproxy.io/?' + encodeURIComponent(NOTION_UPDATE), {
+        method: 'PATCH',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+          'Notion-Version': '2022-06-28'
+        },
+        body: JSON.stringify({ properties })
+      });
+    } else {
+      // Create new entry
+      showSyncStatus('Creating new Hub entry…', true);
+      const NOTION_CREATE = 'https://api.notion.com/v1/pages';
+      result = await fetch('https://corsproxy.io/?' + encodeURIComponent(NOTION_CREATE), {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+          'Notion-Version': '2022-06-28'
+        },
+        body: JSON.stringify({
+          parent: { database_id: dbId },
+          properties
+        })
+      });
+    }
+
+    if(!result.ok){
+      const err = await result.json();
+      // Check for specific property errors — Hub may use different field names
+      if(err.message && err.message.includes('Could not find property')){
+        throw new Error('Property name mismatch — check that your Hub database has fields named: HRV, Energy, Focus, AMO50 (Tension), Stress, Sleep Hours, Cycle Day, Output Capacity, Cognitive Capacity, Warrior Score, IR Load Score');
+      }
+      throw new Error(err.message || 'Sync failed');
+    }
+
+    const page = await result.json();
+    const action = existingPage ? 'Updated' : 'Created';
+    showSyncStatus(`✅ ${action} Hub entry for ${fmtFull(date)} — open Notion to see it`, true);
+    // Save API key for next time
+    localStorage.setItem(NKEY_STORE, apiKey);
+    localStorage.setItem(NDBID_STORE, dbId);
+
+  } catch(err) {
+    // Handle CORS error specifically — GitHub Pages → Notion API works fine,
+    // but if testing locally the browser may block it
+    if(err.name === 'TypeError' && err.message.includes('fetch')){
+      showSyncStatus('⚠ Network error — check your internet connection. If testing locally (file://), upload to GitHub Pages first. Proxy: corsproxy.io', false);
+    } else {
+      showSyncStatus('⚠ ' + err.message, false);
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Sync Entry →';
+}
+
+// ═══ MORNING CHECKLIST ════════════════════════════════════════
+// Zone + phase specific tasks. State lives in memory only — resets on refresh.
+let checklistState = {};
+
+function getChecklistTasks(zone, phase, cc, adhd){
+  const tasks = [];
+
+  // Universal morning tasks
+  tasks.push({id:'water',    text:'Drink 8oz water before anything else'});
+  tasks.push({id:'hrv',      text:'Open Welltory → take HRV reading → log to Notion HRV database'});
+  tasks.push({id:'hub',      text:'Create today\'s Hub entry → link HRV & Recovery → set Cycle Day'});
+  tasks.push({id:'meds',     text:'Take meds and log time in Hub → Meds Taken checkbox + Meds Time'});
+  tasks.push({id:'protein1', text:'Eat or prepare a protein-first breakfast within 30 min of waking'});
+
+  // Zone-specific tasks
+  if(zone <= 2){
+    tasks.push({id:'timer', text:'Set 90-min timer BEFORE opening any task — do this now, before anything else'});
+  }
+  if(zone === 3){
+    tasks.push({id:'timer60', text:'Set 60-min timer — Zone 3 hard stop. You will not feel the drop coming.'});
+    tasks.push({id:'z3warn',  text:'Check Zone 3 rule: routine tasks only, no new decisions, no new patterns'});
+  }
+  if(zone >= 4){
+    tasks.push({id:'eat',    text:'Eat something with protein RIGHT NOW before attempting any task'});
+    tasks.push({id:'noact',  text:'Urgency you feel is ADHD noise — do not act on it. One micro-task only.'});
+  }
+
+  // Cognitive capacity tasks
+  if(cc < 65){
+    tasks.push({id:'checklist', text:'Cog Cap below 65 — checklist mode active. No new patterns. No new recipes. Pre-written steps only.'});
+  }
+
+  // ADHD intensity tasks
+  if(adhd >= 12){
+    tasks.push({id:'adhd-high', text:'High/Crisis ADHD logged — executive function is today\'s primary limiter. Follow zone protocol exactly, no improvising.'});
+  }
+
+  // Cycle phase tasks
+  if(phase === 'Menstrual'){
+    tasks.push({id:'heating',   text:'Heating pad on if cramping — rest is protocol today'});
+    tasks.push({id:'craving-m', text:'Stock craving redirects: dark choc 70%+ · electrolyte drink · sweet potato'});
+  }
+  if(phase === 'Ovulatory'){
+    tasks.push({id:'meal-rem',  text:'Set meal reminders — appetite may suppress during ovulatory phase, don\'t skip protein'});
+  }
+  if(phase === 'Luteal'){
+    tasks.push({id:'craving-l', text:'Luteal craving redirect ready: sweet potato · rice + protein · fruit + yogurt · dark choc'});
+  }
+  if(phase === 'Follicular'){
+    tasks.push({id:'new-ok',    text:'Follicular phase — best window for new patterns, new recipes, complex tasks. Use it.'});
+  }
+
+  // Logging task
+  tasks.push({id:'calc',  text:'Calculate + Save Entry in this calculator → sync to Notion Hub'});
+  tasks.push({id:'daily', text:'Create Daily Summary entry → link to Hub → start logging meals in Meal Log'});
+
+  return tasks;
+}
+
+function renderChecklist(zone, phase, cc, adhd){
+  const tasks = getChecklistTasks(zone, phase, cc, adhd);
+  const wrap = document.getElementById('checklist-wrap');
+  const itemsEl = document.getElementById('mcl-items');
+  const zoneEl = document.getElementById('mcl-zone-label');
+  const badgeEl = document.getElementById('mcl-badge');
+  const progressEl = document.getElementById('mcl-progress');
+
+  if(!wrap) return;
+  wrap.style.display = 'block';
+
+  const zoneLabels = ['','⚡ Zone 1','✅ Zone 2','🟡 Zone 3','🟠 Zone 4','🔴 Zone 5'];
+  zoneEl.textContent = (zoneLabels[zone]||'') + ' · ' + (phase||'') + ' phase checklist';
+
+  // Init state for new tasks
+  tasks.forEach(t => { if(!(t.id in checklistState)) checklistState[t.id] = false; });
+
+  const done = tasks.filter(t => checklistState[t.id]).length;
+  const total = tasks.length;
+  badgeEl.textContent = done + '/' + total;
+  badgeEl.style.color = done === total ? 'var(--teal)' : 'var(--text3)';
+  badgeEl.style.borderColor = done === total ? 'var(--teal)' : 'var(--border2)';
+  progressEl.textContent = done === total
+    ? '✅ All done — you\'re cleared for the day'
+    : total - done + ' remaining';
+
+  itemsEl.innerHTML = tasks.map(t => `
+    <div class="mcl-item ${checklistState[t.id]?'done':''}" onclick="toggleCheck('${t.id}')">
+      <div class="mcl-cb">${checklistState[t.id]?'✓':''}</div>
+      <div class="mcl-text">${t.text}</div>
+    </div>
+  `).join('');
+
+  // Auto-open if zone 3 or below
+  if(zone >= 3){
+    document.getElementById('mcl-body').classList.add('open');
+    document.getElementById('mcl-chev').classList.add('open');
+  }
+}
+
+function toggleCheck(id){
+  checklistState[id] = !checklistState[id];
+  // Use globals — no DOM scraping needed
+  renderChecklist(_currentZone, _currentPhase, _currentCogCap, _currentAdhd);
+}
+
+function resetChecklist(){
+  checklistState = {};
+  renderChecklist(_currentZone, _currentPhase, _currentCogCap, _currentAdhd);
+}
+
+// ═══ C3: EXPORT WEEK AS TEXT SUMMARY ══════════════════════════
+
+function exportWeekSummary(){
+  const db = loadSessions();
+  const {mon, sun, keys} = getWeekRange(weekOffset);
+  const entries = keys.map(k=>({k,e:db[k]})).filter(x=>x.e);
+
+  if(!entries.length){
+    alert('No entries for this week to export.');
+    return;
+  }
+
+  const avg = Math.round(entries.reduce((s,x)=>s+x.e.finalScore,0)/entries.length);
+  const avgIR = Math.round(entries.reduce((s,x)=>s+(x.e.irLoad||0),0)/entries.length);
+  const avgSleep = (entries.reduce((s,x)=>s+x.e.inputs.sleep,0)/entries.length).toFixed(1);
+
+  const zone = avg>=85?'⚡ Zone 1':avg>=70?'✅ Zone 2':avg>=55?'🟡 Zone 3':avg>=40?'🟠 Zone 4':'🔴 Zone 5';
+
+  // Find dominant phase
+  const phases = entries.map(x=>x.e.phase).filter(Boolean);
+  const phaseCounts = {};
+  phases.forEach(p=>phaseCounts[p]=(phaseCounts[p]||0)+1);
+  const domPhase = Object.entries(phaseCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'Unknown';
+  const phaseEmojis = {'Menstrual':'🔴','Follicular':'🔵','Ovulatory':'✅','Luteal':'💜'};
+  const phaseEmoji = phaseEmojis[domPhase]||'';
+
+  const dayLines = entries.map(({k,e})=>{
+    const d = new Date(k+'T12:00:00');
+    const dayName = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+    const dateStr = (d.getMonth()+1)+'/'+d.getDate();
+    const zl = e.finalScore>=85?'Z1':e.finalScore>=70?'Z2':e.finalScore>=55?'Z3':e.finalScore>=40?'Z4':'Z5';
+    const adhdNote = e.inputs.adhd>0?' · ADHD −'+e.inputs.adhd+'pts':'';
+    return `${dayName} ${dateStr}: ${e.finalScore} (${zl}) · IR ${e.irLoad||0} · Sleep ${e.inputs.sleep}h · ${e.phase||''}${adhdNote}`;
+  }).join('\n');
+
+  const output = [
+    '⚔️ WARRIOR OS — WEEKLY SUMMARY',
+    'Week of '+fmtWeekLabel(mon,sun),
+    '─'.repeat(40),
+    '',
+    `Avg Final Score:  ${avg}  (${zone})`,
+    `Avg IR Load:      ${avgIR}  (lower is better)`,
+    `Avg Sleep:        ${avgSleep}h  (target: 7.5h)`,
+    `Dominant Phase:   ${phaseEmoji} ${domPhase}`,
+    `Days logged:      ${entries.length}/7`,
+    '',
+    '─'.repeat(40),
+    'DAILY BREAKDOWN',
+    '─'.repeat(40),
+    dayLines,
+    '',
+    '─'.repeat(40),
+    'WEEKLY WINS',
+    '─'.repeat(40),
+    '[Fill in what went right this week]',
+    '',
+    'NEXT WEEK FOCUS',
+    '─'.repeat(40),
+    '[Fill in one priority for next week]',
+    '',
+    '─'.repeat(40),
+    'Generated: '+new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}),
+    'Warrior OS · 31F · ADHD-PI · IR Protocol',
+  ].join('\n');
+
+  // Show in a copyable modal
+  const existing = document.getElementById('export-modal');
+  if(existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'export-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1001;display:flex;align-items:center;justify-content:center;padding:16px;';
+  modal.innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:20px;width:100%;max-width:500px;max-height:80vh;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);">📋 Week Summary</span>
+        <button onclick="document.getElementById('export-modal').remove()" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:0 4px;">✕</button>
+      </div>
+      <textarea id="export-text" style="width:100%;height:280px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:10px;color:var(--text);font-family:var(--mono);font-size:10px;line-height:1.6;resize:none;outline:none;">${output}</textarea>
+      <button onclick="copyExport()" style="width:100%;margin-top:10px;background:var(--teal);color:#fff;border:none;border-radius:7px;padding:9px;font-family:var(--mono);font-size:11px;font-weight:600;cursor:pointer;" id="copy-export-btn">Copy to clipboard</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.onclick = e => { if(e.target===modal) modal.remove(); };
+}
+
+function copyExport(){
+  const ta = document.getElementById('export-text');
+  if(!ta) return;
+  ta.select();
+  try {
+    navigator.clipboard.writeText(ta.value).then(()=>{
+      const btn = document.getElementById('copy-export-btn');
+      if(btn){ btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent='Copy to clipboard',2000); }
+    });
+  } catch(e) {
+    document.execCommand('copy');
+    const btn = document.getElementById('copy-export-btn');
+    if(btn){ btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent='Copy to clipboard',2000); }
+  }
+}
+
+</script>
+
+
+<!-- MORNING CHECKLIST -->
+<div class="mcl-wrap" id="checklist-wrap" style="display:none;">
+  <div class="mcl-panel">
+    <div class="mcl-hh" onclick="togglePanel('mcl-body','mcl-chev')">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="mcl-title">☑ Morning Checklist</span>
+        <span class="mcl-badge" id="mcl-badge">—</span>
+      </div>
+      <span class="hchev" id="mcl-chev">▾</span>
+    </div>
+    <div class="mcl-body" id="mcl-body">
+      <div class="mcl-zone" id="mcl-zone-label"></div>
+      <div id="mcl-items"></div>
+      <div class="mcl-progress" id="mcl-progress"></div>
+      <button class="mcl-reset" onclick="resetChecklist()">↺ Reset checklist</button>
+    </div>
+  </div>
+</div>
+<!-- NOTION SYNC MODAL -->
+<div class="nmodal-bg" id="nsync-modal" style="display:none;" onclick="if(event.target===this)closeSyncModal()">
+  <div class="nmodal">
+    <h3>⬆ Sync Today's Entry to Notion</h3>
+    <div class="nfield">
+      <label>Notion API Key</label>
+      <input type="password" id="n-apikey" placeholder="secret_..." oninput="saveNKey()">
+      <div class="hint">Get from notion.so/my-integrations → your integration → show API key. Stored locally in your browser only — never sent anywhere except Notion's API.</div>
+    </div>
+    <div class="nfield">
+      <label>Warrior Master Hub Database ID</label>
+      <input type="text" id="n-dbid" placeholder="74f3ebebb3c6822eb3bf814eba2e2a97" oninput="saveNDBID()">
+      <div class="hint">From your Hub database URL: notion.so/[workspace]/[this-id]?v=... — just the ID part without dashes.</div>
+    </div>
+    <div class="nfield">
+      <label>Entry Date to Sync</label>
+      <input type="date" id="n-syncdate">
+      <div class="hint">Defaults to today. Change to sync a historical entry from your local history.</div>
+    </div>
+    <div id="nsync-status" class="nsync-status"></div>
+    <div class="nmodal-btns">
+      <button class="nbtn-cancel" onclick="closeSyncModal()">Cancel</button>
+      <button class="nbtn-primary" id="nsync-go" onclick="doSync()">Sync Entry →</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
